@@ -1,0 +1,9 @@
+-muwx
+-i build/blink_pfc161.ihx
+-b HOME = 0x0022
+-b DATA = 0x0002
+-k M:\repos\padauk\SDCC\bin\..\lib\pdk14
+-l pdk14
+build/blink_pfc161.rel
+
+-e

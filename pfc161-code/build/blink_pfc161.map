@@ -1,0 +1,255 @@
+ASxxxx Linker V03.00/V05.40 + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           _startup
+     00000000  __flag                             main
+     00000000  l_CABS                          
+     00000000  l_CONST                         
+     00000000  l_DABS                          
+     00000000  l_HEADER                        
+     00000000  l_PREG                          
+     00000000  l_RSEG                          
+     00000000  l__CODE                         
+     00000000  s_CABS                          
+     00000000  s_DABS                          
+     00000000  s_HEADER                        
+     00000000  s_HEADER1                       
+     00000000  s_HEADER3                       
+     00000000  s_PREG                          
+     00000000  s_PREG2                         
+     00000000  s_RSEG                          
+     00000000  s_RSEG0                         
+     00000000  s__CODE                         
+     00000001  l_SSEG                          
+     00000002  __sp                               main
+     00000002  l_GSFINAL                       
+     00000002  l_HEADER1                       
+     00000002  l_HOME                          
+     00000002  l_PREG2                         
+     00000002  l_RSEG0                         
+     00000002  s_DATA                          
+     00000003  __clkmd                            main
+     00000004  __inten                            main
+     00000005  __intrq                            main
+     00000006  __t16m                             main
+     00000006  l_OSEG                          
+     00000008  __misc                             main
+     0000000A  __eoscr                            main
+     0000000B  __ihrcr                            main
+     0000000C  __integs                           main
+     0000000D  __padier                           main
+     0000000E  __pbdier                           main
+     0000000F  __misc2                            main
+     00000010  __pa                               main
+     00000011  __pac                              main
+     00000012  __paph                             main
+     00000013  __papl                             main
+     00000014  __pb                               main
+     00000014  l_HEADER3                       
+     00000015  __pbc                              main
+     00000016  __pbph                             main
+     00000017  __pbpl                             main
+     00000018  __gpcc                             main
+     00000019  __gpcs                             main
+ASxxxx Linker V03.00/V05.40 + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000001A  __bgtr                             main
+     0000001B  __misclvr                          main
+     0000001C  __tm2c                             main
+     0000001D  __tm2ct                            main
+     0000001E  __tm2s                             main
+     0000001F  __tm2b                             main
+     00000020  __ts                               main
+     00000021  __tcc                              main
+     00000022  __tke2                             main
+     00000022  s_HOME                          
+     00000024  __tke1                             main
+     00000024  s_GSINIT                        
+     00000026  __tps                              main
+     00000028  __tps2                             main
+     0000002B  __tkch                             main
+     0000002C  __tkcl                             main
+     0000002D  __lvdc                             main
+     00000032  __tm3c                             main
+     00000033  __tm3ct                            main
+     00000034  __tm3s                             main
+     00000035  __tm3b                             main
+     00000039  __ilrcr                            main
+     0000003A  __rop                              main
+     0000003B  l_DATA                          
+     0000003D  s_OSEG                          
+     00000043  s_SSEG                          
+     00000096  l_GSINIT                        
+     000000BA  s_GSFINAL                       
+     000000BC  s_CODE                          
+     000001A6  l_CODE                          
+     00000262  s_CONST                         
+ASxxxx Linker V03.00/V05.40 + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+DATA                                00000002    0000003B =          59. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000002  _r                                 main
+     00000003  _g                                 main
+     00000004  _b                                 main
+     00000005  _blue_pixels                       main
+     00000011  _orange_pixels                     main
+     0000001D  _off_pixels                        main
+     00000029  _bytes                             main
+     0000002A  _byte_t                            main
+     0000002B  _pixel_ptr                         main
+     0000002D  _byte_ctr                          main
+     0000002E  _button_ctr                        main
+     0000002F  _button_down                       main
+     00000030  _pattern_count                     main
+     00000031  _pattern_index                     main
+     00000032  _cnt                               main
+     00000034  __modsint_PARM_1                   _modsint
+     00000036  __modsint_PARM_2                   _modsint
+
+ASxxxx Linker V03.00/V05.40 + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+OSEG                                0000003D    00000006 =           6. bytes (REL,OVR)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000003D  __moduint_PARM_1                   _moduint
+     0000003F  __moduint_PARM_2                   _moduint
+
+ASxxxx Linker V03.00/V05.40 + sdld,  page 5.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+RSEG0                               00000000    00000002 =           2. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  __t16c                             main
+
+ASxxxx Linker V03.00/V05.40 + sdld,  page 6.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+SSEG                                00000043    00000001 =           1. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00/V05.40 + sdld,  page 7.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+HOME                                00000022    00000002 =           2. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00/V05.40 + sdld,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+HEADER1                             00000000    00000002 =           2. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00/V05.40 + sdld,  page 9.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+GSINIT                              00000024    00000096 =         150. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00/V05.40 + sdld,  page 10.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+GSFINAL                             000000BA    00000002 =           2. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00/V05.40 + sdld,  page 11.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+PREG2                               00000000    00000002 =           2. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  p                                  main
+
+ASxxxx Linker V03.00/V05.40 + sdld,  page 12.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+HEADER3                             00000000    00000014 =          20. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00/V05.40 + sdld,  page 13.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CODE                                000000BC    000001A6 =         422. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000000BC  _output_leds                       main
+     000000E2  _update_pattern                    main
+     0000010A  _main                              main
+     00000136  _interrupt                         main
+     00000192  __modsint                          _modsint
+     00000204  __moduint                          _moduint
+     00000260  ___sdcc_external_startup           _startup
+
+ASxxxx Linker V03.00/V05.40 + sdld,  page 14.
+
+Files Linked                              [ module(s) ]
+
+build/blink_pfc161.rel                    [ main ]
+
+
+Libraries Linked                          [ object file ]
+
+M:\repos\padauk\SDCC\bin\..\lib\pdk14/pdk14.lib
+                                          [ _modsint.rel ]
+M:\repos\padauk\SDCC\bin\..\lib\pdk14/pdk14.lib
+                                          [ _moduint.rel ]
+M:\repos\padauk\SDCC\bin\..\lib\pdk14/pdk14.lib
+                                          [ _startup.rel ]
+
+ASxxxx Linker V03.00/V05.40 + sdld,  page 15.
+
+User Base Address Definitions
+
+HOME = 0x0022
+DATA = 0x0002
+
+

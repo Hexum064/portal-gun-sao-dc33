@@ -1,0 +1,118 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Padauk 14)                Page 1
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  002710 L
+    .__.ABS.                                                    =  000000 G
+    .__.CPU.                                                    =  000000 L
+    .__.H$L.                                                    =  000000 L
+    ___sdcc_external_startup                                       ****** GX
+    __bgtr                                                      =  00001A G
+    __clkmd                                                     =  000003 G
+    __eoscr                                                     =  00000A G
+    __flag                                                      =  000000 G
+    __gpcc                                                      =  000018 G
+    __gpcs                                                      =  000019 G
+    __ihrcr                                                     =  00000B G
+    __ilrcr                                                     =  000039 G
+    __integs                                                    =  00000C G
+    __inten                                                     =  000004 G
+  7 __interrupt_vect                                               000000 R
+    __intrq                                                     =  000005 G
+    __lvdc                                                      =  00002D G
+    __misc                                                      =  000008 G
+    __misc2                                                     =  00000F G
+    __misclvr                                                   =  00001B G
+    __modsint                                                      ****** GX
+    __modsint_PARM_1                                               ****** GX
+    __modsint_PARM_2                                               ****** GX
+    __pa                                                        =  000010 G
+    __pac                                                       =  000011 G
+    __padier                                                    =  00000D G
+    __paph                                                      =  000012 G
+    __papl                                                      =  000013 G
+    __pb                                                        =  000014 G
+    __pbc                                                       =  000015 G
+    __pbdier                                                    =  00000E G
+    __pbph                                                      =  000016 G
+    __pbpl                                                      =  000017 G
+    __rop                                                       =  00003A G
+  A __sdcc_init_data                                               000000 R
+  7 __sdcc_program_startup                                         000000 R
+    __sp                                                        =  000002 G
+  5 __start__stack                                                 000000 R
+  4 __t16c                                                         000000 GR
+    __t16m                                                      =  000006 G
+    __tcc                                                       =  000021 G
+    __tkch                                                      =  00002B G
+    __tkcl                                                      =  00002C G
+    __tke1                                                      =  000024 G
+    __tke2                                                      =  000022 G
+    __tm2b                                                      =  00001F G
+    __tm2c                                                      =  00001C G
+    __tm2ct                                                     =  00001D G
+    __tm2s                                                      =  00001E G
+    __tm3b                                                      =  000035 G
+    __tm3c                                                      =  000032 G
+    __tm3ct                                                     =  000033 G
+    __tm3s                                                      =  000034 G
+    __tps                                                       =  000026 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Padauk 14)                Page 2
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    __tps2                                                      =  000028 G
+    __ts                                                        =  000020 G
+  1 _b                                                             000002 GR
+  1 _blue_pixels                                                   000003 GR
+  1 _button_ctr                                                    00002C GR
+  1 _button_down                                                   00002D GR
+  1 _byte_ctr                                                      00002B GR
+  1 _byte_t                                                        000028 GR
+  1 _bytes                                                         000027 GR
+  1 _cnt                                                           000030 GR
+  1 _g                                                             000001 GR
+  F _interrupt                                                     00007A GR
+  F _main                                                          00004E GR
+  1 _off_pixels                                                    00001B GR
+  1 _orange_pixels                                                 00000F GR
+  F _output_leds                                                   000000 GR
+  1 _pattern_count                                                 00002E GR
+  1 _pattern_index                                                 00002F GR
+  1 _pixel_ptr                                                     000029 GR
+  1 _r                                                             000000 GR
+  1 _tmp                                                           000031 R
+  F _update_pattern                                                000026 GR
+    l_DATA                                                         ****** GX
+    l_OSEG                                                         ****** GX
+  D p                                                              000000 GR
+    s_DATA                                                         ****** GX
+    s_OSEG                                                         ****** GX
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Padauk 14)                Page 3
+Hexadecimal [24-Bits]
+
+Area Table
+
+   0 _CODE                                      size      0   flags    0
+   1 DATA                                       size     32   flags    0
+   2 OSEG                                       size      0   flags    4
+   3 RSEG                                       size      0   flags    8
+   4 RSEG0                                      size      2   flags    8
+   5 SSEG                                       size      1   flags    0
+   6 DABS                                       size      0   flags    8
+   7 HOME                                       size      2   flags    0
+   8 HEADER                                     size      0   flags    8
+   9 HEADER1                                    size      2   flags    8
+   A GSINIT                                     size     96   flags    0
+   B GSFINAL                                    size      2   flags    0
+   C PREG                                       size      0   flags    8
+   D PREG2                                      size      2   flags    8
+   E HEADER3                                    size     14   flags    8
+   F CODE                                       size     D6   flags    0
+  10 CONST                                      size      0   flags    0
+  11 CABS                                       size      0   flags    8
+

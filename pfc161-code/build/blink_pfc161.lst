@@ -1,0 +1,513 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler
+                                      3 ; Version 4.4.4 #15018 (MINGW32)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module main
+                                      6 	
+                                      7 	.optsdcc -mpdk14
+                                      8 
+                                      9 ; default segment ordering in RAM for linker
+                                     10 	.area DATA
+                                     11 	.area OSEG (OVR,DATA)
+                                     12 
+                                     13 ;--------------------------------------------------------
+                                     14 ; Public variables in this module
+                                     15 ;--------------------------------------------------------
+                                     16 	.globl _interrupt
+                                     17 	.globl _main
+                                     18 	.globl _update_pattern
+                                     19 	.globl _output_leds
+                                     20 	.globl __t16c
+                                     21 	.globl __rop
+                                     22 	.globl __ilrcr
+                                     23 	.globl __tm3b
+                                     24 	.globl __tm3s
+                                     25 	.globl __tm3ct
+                                     26 	.globl __tm3c
+                                     27 	.globl __lvdc
+                                     28 	.globl __tkcl
+                                     29 	.globl __tkch
+                                     30 	.globl __tps2
+                                     31 	.globl __tps
+                                     32 	.globl __tke1
+                                     33 	.globl __tke2
+                                     34 	.globl __tcc
+                                     35 	.globl __ts
+                                     36 	.globl __tm2b
+                                     37 	.globl __tm2s
+                                     38 	.globl __tm2ct
+                                     39 	.globl __tm2c
+                                     40 	.globl __misclvr
+                                     41 	.globl __bgtr
+                                     42 	.globl __gpcs
+                                     43 	.globl __gpcc
+                                     44 	.globl __pbpl
+                                     45 	.globl __pbph
+                                     46 	.globl __pbc
+                                     47 	.globl __pb
+                                     48 	.globl __papl
+                                     49 	.globl __paph
+                                     50 	.globl __pac
+                                     51 	.globl __pa
+                                     52 	.globl __misc2
+                                     53 	.globl __pbdier
+                                     54 	.globl __padier
+                                     55 	.globl __integs
+                                     56 	.globl __ihrcr
+                                     57 	.globl __eoscr
+                                     58 	.globl __misc
+                                     59 	.globl __t16m
+                                     60 	.globl __intrq
+                                     61 	.globl __inten
+                                     62 	.globl __clkmd
+                                     63 	.globl __sp
+                                     64 	.globl __flag
+                                     65 	.globl _cnt
+                                     66 	.globl _pattern_index
+                                     67 	.globl _pattern_count
+                                     68 	.globl _button_down
+                                     69 	.globl _button_ctr
+                                     70 	.globl _byte_ctr
+                                     71 	.globl _pixel_ptr
+                                     72 	.globl _byte_t
+                                     73 	.globl _bytes
+                                     74 	.globl _off_pixels
+                                     75 	.globl _orange_pixels
+                                     76 	.globl _blue_pixels
+                                     77 	.globl _b
+                                     78 	.globl _g
+                                     79 	.globl _r
+                                     80 ;--------------------------------------------------------
+                                     81 ; special function registers
+                                     82 ;--------------------------------------------------------
+                                     83 	.area RSEG (ABS)
+      000000                         84 	.org 0x0000
+                           000000    85 __flag	=	0x0000
+                           000002    86 __sp	=	0x0002
+                           000003    87 __clkmd	=	0x0003
+                           000004    88 __inten	=	0x0004
+                           000005    89 __intrq	=	0x0005
+                           000006    90 __t16m	=	0x0006
+                           000008    91 __misc	=	0x0008
+                           00000A    92 __eoscr	=	0x000a
+                           00000B    93 __ihrcr	=	0x000b
+                           00000C    94 __integs	=	0x000c
+                           00000D    95 __padier	=	0x000d
+                           00000E    96 __pbdier	=	0x000e
+                           00000F    97 __misc2	=	0x000f
+                           000010    98 __pa	=	0x0010
+                           000011    99 __pac	=	0x0011
+                           000012   100 __paph	=	0x0012
+                           000013   101 __papl	=	0x0013
+                           000014   102 __pb	=	0x0014
+                           000015   103 __pbc	=	0x0015
+                           000016   104 __pbph	=	0x0016
+                           000017   105 __pbpl	=	0x0017
+                           000018   106 __gpcc	=	0x0018
+                           000019   107 __gpcs	=	0x0019
+                           00001A   108 __bgtr	=	0x001a
+                           00001B   109 __misclvr	=	0x001b
+                           00001C   110 __tm2c	=	0x001c
+                           00001D   111 __tm2ct	=	0x001d
+                           00001E   112 __tm2s	=	0x001e
+                           00001F   113 __tm2b	=	0x001f
+                           000020   114 __ts	=	0x0020
+                           000021   115 __tcc	=	0x0021
+                           000022   116 __tke2	=	0x0022
+                           000024   117 __tke1	=	0x0024
+                           000026   118 __tps	=	0x0026
+                           000028   119 __tps2	=	0x0028
+                           00002B   120 __tkch	=	0x002b
+                           00002C   121 __tkcl	=	0x002c
+                           00002D   122 __lvdc	=	0x002d
+                           000032   123 __tm3c	=	0x0032
+                           000033   124 __tm3ct	=	0x0033
+                           000034   125 __tm3s	=	0x0034
+                           000035   126 __tm3b	=	0x0035
+                           000039   127 __ilrcr	=	0x0039
+                           00003A   128 __rop	=	0x003a
+      000000                        129 __t16c::
+      000000                        130 	.ds 2
+                                    131 ;--------------------------------------------------------
+                                    132 ; ram data
+                                    133 ;--------------------------------------------------------
+                                    134 	.area DATA
+      000000                        135 _r::
+      000000                        136 	.ds 1
+      000001                        137 _g::
+      000001                        138 	.ds 1
+      000002                        139 _b::
+      000002                        140 	.ds 1
+      000003                        141 _blue_pixels::
+      000003                        142 	.ds 12
+      00000F                        143 _orange_pixels::
+      00000F                        144 	.ds 12
+      00001B                        145 _off_pixels::
+      00001B                        146 	.ds 12
+      000027                        147 _bytes::
+      000027                        148 	.ds 1
+      000028                        149 _byte_t::
+      000028                        150 	.ds 1
+      000029                        151 _pixel_ptr::
+      000029                        152 	.ds 2
+      00002B                        153 _byte_ctr::
+      00002B                        154 	.ds 1
+      00002C                        155 _button_ctr::
+      00002C                        156 	.ds 1
+      00002D                        157 _button_down::
+      00002D                        158 	.ds 1
+      00002E                        159 _pattern_count::
+      00002E                        160 	.ds 1
+      00002F                        161 _pattern_index::
+      00002F                        162 	.ds 1
+      000030                        163 _cnt::
+      000030                        164 	.ds 1
+      000031                        165 _tmp:
+      000031                        166 	.ds 1
+                                    167 ;--------------------------------------------------------
+                                    168 ; overlayable items in ram
+                                    169 ;--------------------------------------------------------
+                                    170 ;--------------------------------------------------------
+                                    171 ; Stack segment in internal ram
+                                    172 ;--------------------------------------------------------
+                                    173 	.area SSEG
+      000000                        174 __start__stack:
+      000000                        175 	.ds	1
+                                    176 
+                                    177 ;--------------------------------------------------------
+                                    178 ; absolute external ram data
+                                    179 ;--------------------------------------------------------
+                                    180 	.area DABS (ABS)
+                                    181 ;--------------------------------------------------------
+                                    182 ; interrupt vector
+                                    183 ;--------------------------------------------------------
+                                    184 	.area HOME
+      000000                        185 __interrupt_vect:
+                                    186 	.area	HEADER (ABS)
+      000020                        187 	.org	 0x0020
+      000020r7Ar30                  188 	goto	_interrupt
+                                    189 ;--------------------------------------------------------
+                                    190 ; global & static initialisations
+                                    191 ;--------------------------------------------------------
+                                    192 	.area HOME
+                                    193 	.area GSINIT
+                                    194 	.area GSFINAL
+                                    195 	.area GSINIT
+                                    196 	.area	PREG (ABS)
+      000000                        197 	.org 0x00
+      000000                        198 p::
+      000000                        199 	.ds 2
+                                    200 	.area	HEADER (ABS)
+      000000                        201 	.org 0x0000
+      000000 00 00                  202 	nop
+      000002r01r13                  203 	clear	p+1
+      000004r00r2F                  204 	mov	a, #s_OSEG
+      000006r01r28                  205 	add	a, #l_OSEG + 1
+      000008 FE 2C                  206 	and	a, #0xfe
+      00000A 82 01                  207 	mov.io	sp, a
+      00000Cr00r38                  208 	call	___sdcc_external_startup
+      00000E 00 2B                  209 	cneqsn	a, #0x00
+      000010r00r30                  210 	goto	__sdcc_init_data
+      000012r00r30                  211 	goto	__sdcc_program_startup
+                                    212 	.area GSINIT
+      000000                        213 __sdcc_init_data:
+      000000r00r2F                  214 	mov	a, #s_DATA
+      000002r80r0B                  215 	mov	p, a
+      000004r0Er30                  216 	goto	00002$
+      000006                        217 00001$:
+      000006 00 2F                  218 	mov	a, #0x00
+      000008r80r03                  219 	idxm	p, a
+      00000Ar00r12                  220 	inc	p
+      00000Cr00r2F                  221 	mov	a, #s_DATA
+      00000E                        222 00002$:
+      00000Er00r28                  223 	add	a, #l_DATA
+      000010r00r17                  224 	ceqsn	a, p
+      000012r06r30                  225 	goto	00001$
+                                    226 ;	main.c: 27: volatile uint8_t r = 31;
+      000014 1F 2F                  227 	mov	a, #0x1f
+      000016r80r0B                  228 	mov	_r+0, a
+                                    229 ;	main.c: 28: volatile uint8_t g = 0;
+      000018r01r13                  230 	clear	_g+0
+                                    231 ;	main.c: 29: volatile uint8_t b = 31;
+      00001A 1F 2F                  232 	mov	a, #0x1f
+      00001Cr82r0B                  233 	mov	_b+0, a
+                                    234 ;	main.c: 39: volatile uint8_t blue_pixels[] = {
+      00001Er03r13                  235 	clear	_blue_pixels+0
+      000020r04r13                  236 	clear	_blue_pixels+1
+      000022 80 2F                  237 	mov	a, #0x80
+      000024r85r0B                  238 	mov	_blue_pixels+2, a
+      000026r06r13                  239 	clear	_blue_pixels+3
+      000028r07r13                  240 	clear	_blue_pixels+4
+      00002A 80 2F                  241 	mov	a, #0x80
+      00002Cr88r0B                  242 	mov	_blue_pixels+5, a
+      00002Er09r13                  243 	clear	_blue_pixels+6
+      000030r0Ar13                  244 	clear	_blue_pixels+7
+      000032 80 2F                  245 	mov	a, #0x80
+      000034r8Br0B                  246 	mov	_blue_pixels+8, a
+      000036r0Cr13                  247 	clear	_blue_pixels+9
+      000038r0Dr13                  248 	clear	_blue_pixels+10
+      00003A 80 2F                  249 	mov	a, #0x80
+      00003Cr8Er0B                  250 	mov	_blue_pixels+11, a
+                                    251 ;	main.c: 43: volatile uint8_t orange_pixels[] = {
+      00003E 10 2F                  252 	mov	a, #0x10
+      000040r8Fr0B                  253 	mov	_orange_pixels+0, a
+      000042 40 2F                  254 	mov	a, #0x40
+      000044r90r0B                  255 	mov	_orange_pixels+1, a
+      000046r11r13                  256 	clear	_orange_pixels+2
+      000048 10 2F                  257 	mov	a, #0x10
+      00004Ar92r0B                  258 	mov	_orange_pixels+3, a
+      00004C 40 2F                  259 	mov	a, #0x40
+      00004Er93r0B                  260 	mov	_orange_pixels+4, a
+      000050r14r13                  261 	clear	_orange_pixels+5
+      000052 10 2F                  262 	mov	a, #0x10
+      000054r95r0B                  263 	mov	_orange_pixels+6, a
+      000056 40 2F                  264 	mov	a, #0x40
+      000058r96r0B                  265 	mov	_orange_pixels+7, a
+      00005Ar17r13                  266 	clear	_orange_pixels+8
+      00005C 10 2F                  267 	mov	a, #0x10
+      00005Er98r0B                  268 	mov	_orange_pixels+9, a
+      000060 40 2F                  269 	mov	a, #0x40
+      000062r99r0B                  270 	mov	_orange_pixels+10, a
+      000064r1Ar13                  271 	clear	_orange_pixels+11
+                                    272 ;	main.c: 47: volatile uint8_t off_pixels[] = {
+      000066r1Br13                  273 	clear	_off_pixels+0
+      000068r1Cr13                  274 	clear	_off_pixels+1
+      00006Ar1Dr13                  275 	clear	_off_pixels+2
+      00006Cr1Er13                  276 	clear	_off_pixels+3
+      00006Er1Fr13                  277 	clear	_off_pixels+4
+      000070r20r13                  278 	clear	_off_pixels+5
+      000072r21r13                  279 	clear	_off_pixels+6
+      000074r22r13                  280 	clear	_off_pixels+7
+      000076r23r13                  281 	clear	_off_pixels+8
+      000078r24r13                  282 	clear	_off_pixels+9
+      00007Ar25r13                  283 	clear	_off_pixels+10
+      00007Cr26r13                  284 	clear	_off_pixels+11
+                                    285 ;	main.c: 51: volatile uint8_t bytes = 12;
+      00007E 0C 2F                  286 	mov	a, #0x0c
+      000080rA7r0B                  287 	mov	_bytes+0, a
+                                    288 ;	main.c: 52: volatile uint8_t byte_t = 0;    
+      000082r28r13                  289 	clear	_byte_t+0
+                                    290 ;	main.c: 53: volatile uint8_t * pixel_ptr = 0;  
+      000084r29r13                  291 	clear	_pixel_ptr+0
+      000086r2Ar13                  292 	clear	_pixel_ptr+1
+                                    293 ;	main.c: 54: volatile uint8_t byte_ctr = 0;
+      000088r2Br13                  294 	clear	_byte_ctr+0
+                                    295 ;	main.c: 55: volatile uint8_t button_ctr = 0;
+      00008Ar2Cr13                  296 	clear	_button_ctr+0
+                                    297 ;	main.c: 56: volatile uint8_t button_down = 0;
+      00008Cr2Dr13                  298 	clear	_button_down+0
+                                    299 ;	main.c: 57: volatile uint8_t pattern_count = 0;
+      00008Er2Er13                  300 	clear	_pattern_count+0
+                                    301 ;	main.c: 58: volatile uint8_t pattern_index = 0;
+      000090r2Fr13                  302 	clear	_pattern_index+0
+                                    303 ;	main.c: 59: volatile uint8_t cnt = 0;
+      000092r30r13                  304 	clear	_cnt+0
+                                    305 ;	main.c: 60: static     uint8_t tmp = 0;
+      000094r31r13                  306 	clear	_tmp+0
+                                    307 	.area GSFINAL
+      000000r00r30                  308 	goto	__sdcc_program_startup
+                                    309 ;--------------------------------------------------------
+                                    310 ; Home
+                                    311 ;--------------------------------------------------------
+                                    312 	.area HOME
+                                    313 	.area HOME
+      000000                        314 __sdcc_program_startup:
+      000000r4Er30                  315 	goto	_main
+                                    316 ;	return from main will return to caller
+                                    317 ;--------------------------------------------------------
+                                    318 ; code
+                                    319 ;--------------------------------------------------------
+                                    320 	.area CODE
+                                    321 ;	main.c: 63: void output_leds() 
+                                    322 ;	-----------------------------------------
+                                    323 ;	 function output_leds
+                                    324 ;	-----------------------------------------
+      000000                        325 _output_leds:
+                                    326 ;	main.c: 99: __endasm;
+      000000rA7r0F                  327 	mov	a, _bytes ;move our byte count into a
+      000002rABr0B                  328 	mov	_byte_ctr, a ;move a into our index counter
+      000004rA9r0F                  329 	mov	a, _pixel_ptr ;load the address of the array into a
+      000006r80r0B                  330 	mov	p, a ;put that address into p (a mem location)
+      000008                        331 00010$:
+      000008r81r03                  332 	idxm	a, p ;load the byte data from the array into a
+      00000Ar00r12                  333 	inc	p ;inc p to the next address
+      00000CrA8r0B                  334 	mov	_byte_t+0, a ;load the byte data into byte_t
+      00000E 08 2F                  335 	mov	a, #0x08 ;reset the bit count
+      000010                        336 00011$:
+                                    337 ;output	bit
+      000010 50 1F                  338 	set1.io	__pa, #5 ;set the output pin high
+      000012rE8r23                  339 	t1sn	_byte_t, #7 ;if the current MSB is 1, skip setting the pin low now
+      000014 50 1D                  340 	set0.io	__pa, #5 ;set the output pin low
+      000016 00 00                  341 	nop	;wait one cycle
+      000018 50 1D                  342 	set0.io	__pa, #5 ;set the output pin low
+      00001ArA8r15                  343 	sl	_byte_t ;left-shift the data byte (the LEDs are MSB first)
+      00001C 63 00                  344 	dzsn	a ;dec a and skip next instruction if 0
+      00001Er10r30                  345 	goto	00011$ ;jump back to 00011
+      000020rABr11                  346 	dzsn	_byte_ctr ;dec our index counter and skip the goto if 0
+      000022r08r30                  347 	goto	00010$ ;goto the next byte
+                                    348 ;	main.c: 100: }
+      000024 7A 00                  349 	ret
+                                    350 ;	main.c: 102: void update_pattern() 
+                                    351 ;	-----------------------------------------
+                                    352 ;	 function update_pattern
+                                    353 ;	-----------------------------------------
+      000026                        354 _update_pattern:
+                                    355 ;	main.c: 105: switch (pattern_index)
+      000026rAFr0F                  356 	mov	a, _pattern_index+0
+      000028 00 2B                  357 	cneqsn	a, #0x00
+      00002Ar36r30                  358 	goto	00101$
+      00002C                        359 00126$:
+      00002C 01 2B                  360 	cneqsn	a, #0x01
+      00002Er3Er30                  361 	goto	00102$
+      000030                        362 00128$:
+      000030 02 2B                  363 	cneqsn	a, #0x02
+      000032r46r30                  364 	goto	00103$
+      000034                        365 00130$:
+      000034 7A 00                  366 	ret
+                                    367 ;	main.c: 107: case 0:
+      000036                        368 00101$:
+                                    369 ;	main.c: 108: pixel_ptr = off_pixels;
+      000036r1Br2F                  370 	mov	a, #(_off_pixels + 0)
+      000038rA9r0B                  371 	mov	_pixel_ptr+0, a
+      00003Ar2Ar13                  372 	clear	_pixel_ptr+1
+                                    373 ;	main.c: 109: break;            
+      00003C 7A 00                  374 	ret
+                                    375 ;	main.c: 110: case 1:
+      00003E                        376 00102$:
+                                    377 ;	main.c: 111: pixel_ptr = blue_pixels;
+      00003Er03r2F                  378 	mov	a, #(_blue_pixels + 0)
+      000040rA9r0B                  379 	mov	_pixel_ptr+0, a
+      000042r2Ar13                  380 	clear	_pixel_ptr+1
+                                    381 ;	main.c: 112: break;            
+      000044 7A 00                  382 	ret
+                                    383 ;	main.c: 113: case 2:
+      000046                        384 00103$:
+                                    385 ;	main.c: 114: pixel_ptr = orange_pixels;
+      000046r0Fr2F                  386 	mov	a, #(_orange_pixels + 0)
+      000048rA9r0B                  387 	mov	_pixel_ptr+0, a
+      00004Ar2Ar13                  388 	clear	_pixel_ptr+1
+                                    389 ;	main.c: 116: }
+                                    390 ;	main.c: 118: }
+      00004C 7A 00                  391 	ret
+                                    392 ;	main.c: 120: void main(void) {
+                                    393 ;	-----------------------------------------
+                                    394 ;	 function main
+                                    395 ;	-----------------------------------------
+      00004E                        396 _main:
+                                    397 ;	main.c: 122: __disgint();
+      00004E 79 00                  398 	disgint
+                                    399 ;	main.c: 123: CLKMD |= 0x10;           //First enable IHRC
+      000050 03 1F                  400 	set1.io	__clkmd, #4
+                                    401 ;	main.c: 124: CLKMD = 0x34;           //Switch to IHRC/2 but leave ILRC on
+      000052 34 2F                  402 	mov	a, #0x34
+      000054 83 01                  403 	mov.io	__clkmd, a
+                                    404 ;	main.c: 125: CLKMD &= ~(CLKMD_ENABLE_WATCHDOG);
+      000056 43 1C                  405 	set0.io	__clkmd, #1
+                                    406 ;	main.c: 126: PAC = LED_bm; //Pin 5 as out
+      000058 20 2F                  407 	mov	a, #0x20
+      00005A 91 01                  408 	mov.io	__pac, a
+                                    409 ;	main.c: 127: PAPL = BTN_bm; //Pull Pin 4 low internally
+      00005C 10 2F                  410 	mov	a, #0x10
+      00005E 93 01                  411 	mov.io	__papl, a
+                                    412 ;	main.c: 128: PAC &= ~(BTN_bm); //Pin 4 as in
+      000060 11 1D                  413 	set0.io	__pac, #4
+                                    414 ;	main.c: 129: PADIER |= BTN_bm; //Enable digital in
+      000062 0D 1F                  415 	set1.io	__padier, #4
+                                    416 ;	main.c: 132: INTEN = INTEN_TM2;
+      000064 40 2F                  417 	mov	a, #0x40
+      000066 84 01                  418 	mov.io	__inten, a
+                                    419 ;	main.c: 135: TM2B = 10;
+      000068 0A 2F                  420 	mov	a, #0x0a
+      00006A 9F 01                  421 	mov.io	__tm2b, a
+                                    422 ;	main.c: 136: TM2C = TM2C_CLK_ILRC | TM2C_OUT_DISABLE | TM2C_MODE_PERIOD;
+      00006C 40 2F                  423 	mov	a, #0x40
+      00006E 9C 01                  424 	mov.io	__tm2c, a
+                                    425 ;	main.c: 137: TM2S = TM2S_PRESCALE_DIV64; //should also start the timer
+      000070 60 2F                  426 	mov	a, #0x60
+      000072 9E 01                  427 	mov.io	__tm2s, a
+                                    428 ;	main.c: 138: __engint();
+      000074 78 00                  429 	engint
+                                    430 ;	main.c: 144: while(1);
+      000076                        431 00102$:
+      000076r76r30                  432 	goto	00102$
+                                    433 ;	main.c: 145: }
+      000078 7A 00                  434 	ret
+                                    435 ;	main.c: 147: void interrupt(void) __interrupt(0) {
+                                    436 ;	-----------------------------------------
+                                    437 ;	 function interrupt
+                                    438 ;	-----------------------------------------
+      00007A                        439 _interrupt:
+      00007A 72 00                  440 	push	af
+      00007Cr80r0F                  441 	mov	a, p
+      00007E 72 00                  442 	push	af
+                                    443 ;	main.c: 149: if( INTRQ & INTRQ_TM2 ) //Timer2 interrupt request?
+      000080 85 1B                  444 	t1sn.io	__intrq, #6
+      000082rCEr30                  445 	goto	00112$
+      000084                        446 00144$:
+                                    447 ;	main.c: 152: if (PA & BTN_bm) {
+      000084 10 1B                  448 	t1sn.io	__pa, #4
+      000086rB6r30                  449 	goto	00106$
+      000088                        450 00145$:
+                                    451 ;	main.c: 154: if (!button_down)
+      000088rADr0F                  452 	mov	a, _button_down+0
+      00008A 00 2A                  453 	ceqsn	a, #0x00
+      00008CrBAr30                  454 	goto	00107$
+      00008E                        455 00146$:
+                                    456 ;	main.c: 156: button_ctr++;
+      00008ErACr0F                  457 	mov	a, _button_ctr+0
+      000090 01 28                  458 	add	a, #0x01
+      000092rACr0B                  459 	mov	_button_ctr+0, a
+                                    460 ;	main.c: 158: if (button_ctr == BTN_DEBOUNCE_DELAY)
+      000094rACr0F                  461 	mov	a, _button_ctr+0
+      000096 05 2A                  462 	ceqsn	a, #0x05
+      000098rBAr30                  463 	goto	00107$
+      00009A                        464 00147$:
+                                    465 ;	main.c: 160: button_down = 1;
+      00009A 01 2F                  466 	mov	a, #0x01
+      00009CrADr0B                  467 	mov	_button_down+0, a
+                                    468 ;	main.c: 161: pattern_index = (pattern_index + 1) % 3;             
+      00009ErAFr0F                  469 	mov	a, _pattern_index+0
+      0000A0 01 28                  470 	add	a, #0x01
+      0000A2r80r0B                  471 	mov	__modsint_PARM_1+0, a
+      0000A4 00 2F                  472 	mov	a, #0x00
+      0000A6 60 00                  473 	addc	a
+      0000A8r81r0B                  474 	mov	__modsint_PARM_1+1, a
+      0000AA 03 2F                  475 	mov	a, #0x03
+      0000ACr80r0B                  476 	mov	__modsint_PARM_2+0, a
+      0000AEr01r13                  477 	clear	__modsint_PARM_2+1
+      0000B0r00r38                  478 	call	__modsint
+      0000B2rAFr0B                  479 	mov	_pattern_index+0, a
+      0000B4rBAr30                  480 	goto	00107$
+      0000B6                        481 00106$:
+                                    482 ;	main.c: 170: button_ctr = 0;
+      0000B6r2Cr13                  483 	clear	_button_ctr+0
+                                    484 ;	main.c: 171: button_down = 0;
+      0000B8r2Dr13                  485 	clear	_button_down+0
+      0000BA                        486 00107$:
+                                    487 ;	main.c: 174: pattern_count++;
+      0000BArAEr0F                  488 	mov	a, _pattern_count+0
+      0000BC 01 28                  489 	add	a, #0x01
+      0000BErAEr0B                  490 	mov	_pattern_count+0, a
+                                    491 ;	main.c: 176: if (pattern_count == PATTERN_UPDATE_DELAY) 
+      0000C0rAEr0F                  492 	mov	a, _pattern_count+0
+      0000C2 32 2A                  493 	ceqsn	a, #0x32
+      0000C4rCCr30                  494 	goto	00109$
+      0000C6                        495 00148$:
+                                    496 ;	main.c: 178: update_pattern();
+      0000C6r26r38                  497 	call	_update_pattern
+                                    498 ;	main.c: 179: output_leds();
+      0000C8r00r38                  499 	call	_output_leds
+                                    500 ;	main.c: 180: pattern_count = 0;
+      0000CAr2Er13                  501 	clear	_pattern_count+0
+      0000CC                        502 00109$:
+                                    503 ;	main.c: 203: INTRQ &= ~INTRQ_TM2; //Clear interrupt flag
+      0000CC 85 1D                  504 	set0.io	__intrq, #6
+      0000CE                        505 00112$:
+                                    506 ;	main.c: 206: }
+      0000CE 73 00                  507 	pop	af
+      0000D0r80r0B                  508 	mov	p, a
+      0000D2 73 00                  509 	pop	af
+      0000D4 7B 00                  510 	reti
+                                    511 	.area CODE
+                                    512 	.area CONST
+                                    513 	.area CABS (ABS)

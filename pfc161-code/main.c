@@ -4,61 +4,72 @@
 
 #include "easypdk/pfc161.h"
 
-// LED is placed on the PA4 pin (Port A, Bit 4) with a current sink configuration
+
 #define LED_bm 0x20
 #define BTN_bm 0x10
 #define BTN_DEBOUNCE_DELAY 5
 #define PATTERN_UPDATE_DELAY 50
-// LED is active low (current sink), so define helpers for better readability below
+#define LED_COUNT 4
+#define STARTUP_TONE_TIME 10
+#define BUTTON_TONE_TIME 5
+#define STARTUP_BOUNDS 10
+#define BUTTON_BOUNDS 5
+
+typedef struct {
+    uint8_t g;
+    uint8_t r;    
+    uint8_t b;
+} color_t;
 
 
-//logic is switched because we are sinking the current (pin low turns leds on)
-// #define LED_ON(p) (PA &= ~(LED_SHIFT(p)))
-// #define LED_OFF(p) (PA |= (LED_SHIFT(p)))
+color_t orange_color = {.r=64, .g=16, .b=0};
+color_t blue_color = {.r=0, .g=0, .b=128};
+color_t bright_orange_color = {.r=80, .g=32, .b=16};
+color_t bright_blue_color = {.r=16, .g=16, .b=128};
+color_t off_color = {.r=0, .g=0, .b=0};
+
+volatile color_t pixel_buff[LED_COUNT];
 
 
-// extern void test_func();
-// #pragma preproc_asm -
-
-
-
-
-
-volatile uint8_t r = 31;
-volatile uint8_t g = 0;
-volatile uint8_t b = 31;
-
-
-// volatile uint8_t temp_r = 0;
-// volatile uint8_t temp_g = 0;
-// volatile uint8_t temp_b = 0;
-
-
-//for now, 4 pixels as 3 bytes each
-
-volatile uint8_t blue_pixels[] = {
-    0,0,128,0,0,128,0,0,128,0,0,128
-};
-
-volatile uint8_t orange_pixels[] = {
-    16,64,0,16,64,0,16,64,0,16,64,0
-};
-
-volatile uint8_t off_pixels[] = {
-    0,0,0,0,0,0,0,0,0,0,0,0
-};
-
-volatile uint8_t bytes = 12;
+volatile uint8_t bytes = LED_COUNT * 3;
 volatile uint8_t byte_t = 0;    
-volatile uint8_t * pixel_ptr = 0;  
+ 
 volatile uint8_t byte_ctr = 0;
 volatile uint8_t button_ctr = 0;
 volatile uint8_t button_down = 0;
 volatile uint8_t pattern_count = 0;
 volatile uint8_t pattern_index = 0;
-volatile uint8_t cnt = 0;
-static     uint8_t tmp = 0;
+volatile uint8_t pattern_step = 0;
+volatile uint8_t tone_out_ctr = 0;
+volatile uint8_t tone_time = 0;
 
+
+void copy_to_buff(color_t pixel, uint8_t len) {
+    for (uint8_t i = 0; i < len ; i++) {
+        pixel_buff[i].r = pixel.r;
+        pixel_buff[i].g = pixel.g;
+        pixel_buff[i].b = pixel.b;
+    }
+}
+
+void start_tone_out_startup() {
+    tone_out_ctr = 0;
+    tone_time = STARTUP_TONE_TIME;
+    TM2B = STARTUP_BOUNDS;
+    TM2C |= TM2C_CLK_IHRC;
+}
+
+void start_tone_out_button() {
+    tone_out_ctr = 0;
+    tone_time = BUTTON_TONE_TIME;
+    TM2B = BUTTON_BOUNDS;
+    TM2C |= TM2C_CLK_IHRC;
+}
+
+void stop_tone_out() {
+    tone_time = 0;
+    TM2C &= 0x0F; //0 out the top 4 bits for clock source
+}
 
 void output_leds() 
 {
@@ -67,7 +78,7 @@ void output_leds()
         mov a, _bytes           ;move our byte count into a
         mov _byte_ctr, a        ;move a into our index counter
 
-        mov	a, _pixel_ptr       ;load the address of the array into a
+        mov	a, #(_pixel_buff)   ;load the address of the array into a
         mov	p, a                ;put that address into p (a mem location)
 
 
@@ -101,19 +112,46 @@ void output_leds()
 
 void update_pattern() 
 {
-    //TODO: Move a bright led through the pattern for orange and blue
+
+    color_t bright;
+
     switch (pattern_index)
     {
-        case 0:
-            pixel_ptr = off_pixels;
-            break;            
+        case 0:            
+            copy_to_buff(off_color, LED_COUNT);            
+            return;         
         case 1:
-            pixel_ptr = blue_pixels;
+            copy_to_buff(blue_color, LED_COUNT);
+            bright = bright_blue_color;
             break;            
         case 2:
-            pixel_ptr = orange_pixels;
+            copy_to_buff(orange_color, LED_COUNT);
+            bright = bright_orange_color;
             break;
     }
+
+    pattern_step++;
+
+    switch (pattern_step)
+    {
+        case 1:
+            pixel_buff[0] = bright;
+            break;
+        case 3:
+            pixel_buff[1] = bright;
+            break;    
+        case 4:
+            pixel_buff[2] = bright;
+            break;   
+        case 6:
+        case 7:
+            pixel_buff[3] = bright;
+            break;                
+        case 10:
+            pattern_step = 0;
+            break;
+    } 
+
 
 }
 
@@ -129,24 +167,28 @@ void main(void) {
     PADIER |= BTN_bm; //Enable digital in
 
     //Enable the interrupt for TM2
-    INTEN = INTEN_TM2;
+    INTEN = INTEN_TM3;
     
-    //Timer 2 using ILRC (64kHz) with a prescaler of 64 and a bound of 10 should give a 10ms period
+    //Timer 3 using ILRC (64kHz) with a prescaler of 64 and a bound of 10 should give a 10ms period
+    TM3B = 10;
+    TM3C = TM3C_CLK_ILRC | TM3C_OUT_DISABLE | TM3C_MODE_PERIOD;
+    TM3S = TM3S_PRESCALE_DIV64; //should also start the timer
+
     TM2B = 10;
-    TM2C = TM2C_CLK_ILRC | TM2C_OUT_DISABLE | TM2C_MODE_PERIOD;
-    TM2S = TM2S_PRESCALE_DIV64; //should also start the timer
+    TM2C = TM2C_CLK_DISABLE | TM2C_OUT_PA3 | TM3C_MODE_PERIOD;
+    TM2S = TM2S_PRESCALE_DIV16;
+
     __engint();
 
+    
+    start_tone_out_startup();
 
-
-
-
-    while(1);
+    while(1) ;
 }
 
 void interrupt(void) __interrupt(0) {
 
-    if( INTRQ & INTRQ_TM2 ) //Timer2 interrupt request?
+    if( INTRQ & INTRQ_TM3 ) //Timer3 interrupt request
     {
 
         if (PA & BTN_bm) {
@@ -158,7 +200,9 @@ void interrupt(void) __interrupt(0) {
                 if (button_ctr == BTN_DEBOUNCE_DELAY)
                 {
                     button_down = 1;
-                    pattern_index = (pattern_index + 1) % 3;             
+                    pattern_index = (pattern_index + 1) % 3;      
+                    pattern_step = 0;     
+                    start_tone_out_button();  
                 }
 
             }
@@ -180,311 +224,17 @@ void interrupt(void) __interrupt(0) {
             pattern_count = 0;
         }
 
+        if (tone_time) {
+            tone_out_ctr++;
+
+            if (tone_out_ctr >= tone_time) {
+                stop_tone_out();
+            }
+        }
 
 
-        // cnt++;
 
-        // if (cnt == 50) 
-        // {
-        //     if (tmp) {
-        //         pixel_ptr = orange_pixels;
-        //         tmp = 0;
-        //     }
-        //     else {
-        //         pixel_ptr = blue_pixels;
-        //         tmp = 1;
-        //     }
-    
-        //     output_leds();
-        //     cnt = 0;
-        // }
-
-        
-        INTRQ &= ~INTRQ_TM2; //Clear interrupt flag
+        INTRQ &= ~INTRQ_TM3; //Clear interrupt flag
     }   
 
 }
-
-
-        // mov a, _bytes               ;move the total number of bytes into a
-        // mov _byte_ctr, a            ;move a into the byte counter       
-        
-        // mov a, _pixel_data          ;move address of pixel_data into a
-        // mov _pixel_ptr, a           ;move a into pixel_ptr
-
-/*
-
-        mov a, _g
-        mov _temp_g, a
-        mov a, _r
-        mov _temp_r, a
-        mov a, _b
-        mov _temp_b, a
-        mov a, #0x08               ;reset the bit count
-
-00011$:
-        ;output bit
-        set1.io __pa, #4
-        t1sn _temp_g, #7
-        set0.io __pa, #4
-        nop
-        set0.io __pa, #4
-        sl _temp_g              ;left-shift _temp
-
-        dzsn a                  ;dec a and skip next instruction if 0
-        goto 00011$             ;jump back to 00011
-
-        mov a, #0x08               ;reset the bit count
-
-00012$:
-        ;output bit
-        set1.io __pa, #4
-        t1sn _temp_r, #7
-        set0.io __pa, #4
-        nop
-        set0.io __pa, #4
-        sl _temp_r              ;left-shift _temp
-
-        dzsn a                  ;dec a and skip next instruction if 0
-        goto 00012$             ;jump back to 00012
-
-        mov a, #0x08               ;reset the bit count
-
-00013$:
-        ;output bit
-        set1.io __pa, #4
-        t1sn _temp_b, #7
-        set0.io __pa, #4
-        nop
-        set0.io __pa, #4
-        sl _temp_b              ;left-shift _temp
-
-        dzsn a                  ;dec a and skip next instruction if 0
-        goto 00013$             ;jump back to 00013
-
-
-*/
-
-// ;green 64
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop 
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop 
-//         nop
-//         nop        
-
-//         set1.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop      
-
-
-//     ;red 0
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop 
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop 
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop 
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop 
-//         nop
-//         nop
-
-
-
-                  
-
-//  ;blue 64
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop 
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop 
-//         nop
-//         nop        
-
-//         set1.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop
-
-//         set1.io __pa, #4
-//         nop
-//         nop
-//         nop
-//         set0.io __pa, #4
-//         nop
-//         nop
-//         nop 

@@ -7,6 +7,10 @@ Symbol Table
     .__.ABS.                                                    =  000000 G
     .__.CPU.                                                    =  000000 L
     .__.H$L.                                                    =  000000 L
+    ___memcpy                                                      ****** GX
+    ___memcpy_PARM_1                                               ****** GX
+    ___memcpy_PARM_2                                               ****** GX
+    ___memcpy_PARM_3                                               ****** GX
     ___sdcc_external_startup                                       ****** GX
     __bgtr                                                      =  00001A G
     __clkmd                                                     =  000003 G
@@ -54,37 +58,46 @@ Symbol Table
     __tm2ct                                                     =  00001D G
     __tm2s                                                      =  00001E G
     __tm3b                                                      =  000035 G
-    __tm3c                                                      =  000032 G
-    __tm3ct                                                     =  000033 G
-    __tm3s                                                      =  000034 G
-    __tps                                                       =  000026 G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Padauk 14)                Page 2
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    __tm3c                                                      =  000032 G
+    __tm3ct                                                     =  000033 G
+    __tm3s                                                      =  000034 G
+    __tps                                                       =  000026 G
     __tps2                                                      =  000028 G
     __ts                                                        =  000020 G
-  1 _b                                                             000002 GR
-  1 _blue_pixels                                                   000003 GR
-  1 _button_ctr                                                    00002C GR
-  1 _button_down                                                   00002D GR
-  1 _byte_ctr                                                      00002B GR
-  1 _byte_t                                                        000028 GR
-  1 _bytes                                                         000027 GR
-  1 _cnt                                                           000030 GR
-  1 _g                                                             000001 GR
-  F _interrupt                                                     00007A GR
-  F _main                                                          00004E GR
-  1 _off_pixels                                                    00001B GR
-  1 _orange_pixels                                                 00000F GR
-  F _output_leds                                                   000000 GR
-  1 _pattern_count                                                 00002E GR
-  1 _pattern_index                                                 00002F GR
-  1 _pixel_ptr                                                     000029 GR
-  1 _r                                                             000000 GR
-  1 _tmp                                                           000031 R
-  F _update_pattern                                                000026 GR
+  1 _blue_color                                                    000003 GR
+  1 _bright_blue_color                                             000009 GR
+  1 _bright_orange_color                                           000006 GR
+  1 _button_ctr                                                    00001E GR
+  1 _button_down                                                   00001F GR
+  1 _byte_ctr                                                      00001D GR
+  1 _byte_t                                                        00001C GR
+  1 _bytes                                                         00001B GR
+  F _copy_to_buff                                                  000000 GR
+  1 _copy_to_buff_PARM_1                                           000025 GR
+  1 _copy_to_buff_PARM_2                                           000028 GR
+  1 _copy_to_buff_sloc0_1_0                                        000029 R
+  1 _copy_to_buff_sloc1_1_0                                        00002A R
+  F _interrupt                                                     0001D6 GR
+  F _main                                                          00019C GR
+  1 _off_color                                                     00000C GR
+  1 _orange_color                                                  000000 GR
+  F _output_leds                                                   00006E GR
+  1 _pattern_count                                                 000020 GR
+  1 _pattern_index                                                 000021 GR
+  1 _pattern_step                                                  000022 GR
+  1 _pixel_buff                                                    00000F GR
+  F _start_tone_out_button                                         000058 GR
+  F _start_tone_out_startup                                        00004C GR
+  F _stop_tone_out                                                 000064 GR
+  1 _tone_out_ctr                                                  000023 GR
+  1 _tone_time                                                     000024 GR
+  F _update_pattern                                                000094 GR
+  1 _update_pattern_bright_10000_19                                00002B R
     l_DATA                                                         ****** GX
     l_OSEG                                                         ****** GX
   D p                                                              000000 GR
@@ -98,7 +111,7 @@ Hexadecimal [24-Bits]
 Area Table
 
    0 _CODE                                      size      0   flags    0
-   1 DATA                                       size     32   flags    0
+   1 DATA                                       size     2E   flags    0
    2 OSEG                                       size      0   flags    4
    3 RSEG                                       size      0   flags    8
    4 RSEG0                                      size      2   flags    8
@@ -107,12 +120,12 @@ Area Table
    7 HOME                                       size      2   flags    0
    8 HEADER                                     size      0   flags    8
    9 HEADER1                                    size      2   flags    8
-   A GSINIT                                     size     96   flags    0
+   A GSINIT                                     size     5A   flags    0
    B GSFINAL                                    size      2   flags    0
    C PREG                                       size      0   flags    8
    D PREG2                                      size      2   flags    8
    E HEADER3                                    size     14   flags    8
-   F CODE                                       size     D6   flags    0
+   F CODE                                       size    24A   flags    0
   10 CONST                                      size      0   flags    0
   11 CABS                                       size      0   flags    8
 

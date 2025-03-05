@@ -17,6 +17,10 @@
 	.globl _main
 	.globl _update_pattern
 	.globl _output_leds
+	.globl _stop_tone_out
+	.globl _start_tone_out_button
+	.globl _start_tone_out_startup
+	.globl _copy_to_buff
 	.globl __t16c
 	.globl __rop
 	.globl __ilrcr
@@ -62,21 +66,24 @@
 	.globl __clkmd
 	.globl __sp
 	.globl __flag
-	.globl _cnt
+	.globl _copy_to_buff_PARM_2
+	.globl _copy_to_buff_PARM_1
+	.globl _tone_time
+	.globl _tone_out_ctr
+	.globl _pattern_step
 	.globl _pattern_index
 	.globl _pattern_count
 	.globl _button_down
 	.globl _button_ctr
 	.globl _byte_ctr
-	.globl _pixel_ptr
 	.globl _byte_t
 	.globl _bytes
-	.globl _off_pixels
-	.globl _orange_pixels
-	.globl _blue_pixels
-	.globl _b
-	.globl _g
-	.globl _r
+	.globl _pixel_buff
+	.globl _off_color
+	.globl _bright_blue_color
+	.globl _bright_orange_color
+	.globl _blue_color
+	.globl _orange_color
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -132,24 +139,22 @@ __t16c::
 ; ram data
 ;--------------------------------------------------------
 	.area DATA
-_r::
-	.ds 1
-_g::
-	.ds 1
-_b::
-	.ds 1
-_blue_pixels::
-	.ds 12
-_orange_pixels::
-	.ds 12
-_off_pixels::
+_orange_color::
+	.ds 3
+_blue_color::
+	.ds 3
+_bright_orange_color::
+	.ds 3
+_bright_blue_color::
+	.ds 3
+_off_color::
+	.ds 3
+_pixel_buff::
 	.ds 12
 _bytes::
 	.ds 1
 _byte_t::
 	.ds 1
-_pixel_ptr::
-	.ds 2
 _byte_ctr::
 	.ds 1
 _button_ctr::
@@ -160,10 +165,22 @@ _pattern_count::
 	.ds 1
 _pattern_index::
 	.ds 1
-_cnt::
+_pattern_step::
 	.ds 1
-_tmp:
+_tone_out_ctr::
 	.ds 1
+_tone_time::
+	.ds 1
+_copy_to_buff_PARM_1:
+	.ds 3
+_copy_to_buff_PARM_2:
+	.ds 1
+_copy_to_buff_sloc0_1_0:
+	.ds 1
+_copy_to_buff_sloc1_1_0:
+	.ds 1
+_update_pattern_bright_10000_19:
+	.ds 3
 ;--------------------------------------------------------
 ; overlayable items in ram
 ;--------------------------------------------------------
@@ -223,87 +240,56 @@ __sdcc_init_data:
 	add	a, #l_DATA
 	ceqsn	a, p
 	goto	00001$
-;	main.c: 27: volatile uint8_t r = 31;
-	mov	a, #0x1f
-	mov	_r+0, a
-;	main.c: 28: volatile uint8_t g = 0;
-	clear	_g+0
-;	main.c: 29: volatile uint8_t b = 31;
-	mov	a, #0x1f
-	mov	_b+0, a
-;	main.c: 39: volatile uint8_t blue_pixels[] = {
-	clear	_blue_pixels+0
-	clear	_blue_pixels+1
-	mov	a, #0x80
-	mov	_blue_pixels+2, a
-	clear	_blue_pixels+3
-	clear	_blue_pixels+4
-	mov	a, #0x80
-	mov	_blue_pixels+5, a
-	clear	_blue_pixels+6
-	clear	_blue_pixels+7
-	mov	a, #0x80
-	mov	_blue_pixels+8, a
-	clear	_blue_pixels+9
-	clear	_blue_pixels+10
-	mov	a, #0x80
-	mov	_blue_pixels+11, a
-;	main.c: 43: volatile uint8_t orange_pixels[] = {
-	mov	a, #0x10
-	mov	_orange_pixels+0, a
+;	main.c: 25: color_t orange_color = {.r=64, .g=16, .b=0};
 	mov	a, #0x40
-	mov	_orange_pixels+1, a
-	clear	_orange_pixels+2
+	mov	_orange_color+1, a
 	mov	a, #0x10
-	mov	_orange_pixels+3, a
-	mov	a, #0x40
-	mov	_orange_pixels+4, a
-	clear	_orange_pixels+5
+	mov	_orange_color+0, a
+	clear	_orange_color+2
+;	main.c: 26: color_t blue_color = {.r=0, .g=0, .b=128};
+	clear	_blue_color+1
+	clear	_blue_color+0
+	mov	a, #0x80
+	mov	_blue_color+2, a
+;	main.c: 27: color_t bright_orange_color = {.r=80, .g=32, .b=16};
+	mov	a, #0x50
+	mov	_bright_orange_color+1, a
+	mov	a, #0x20
+	mov	_bright_orange_color+0, a
 	mov	a, #0x10
-	mov	_orange_pixels+6, a
-	mov	a, #0x40
-	mov	_orange_pixels+7, a
-	clear	_orange_pixels+8
+	mov	_bright_orange_color+2, a
+;	main.c: 28: color_t bright_blue_color = {.r=16, .g=16, .b=128};
 	mov	a, #0x10
-	mov	_orange_pixels+9, a
-	mov	a, #0x40
-	mov	_orange_pixels+10, a
-	clear	_orange_pixels+11
-;	main.c: 47: volatile uint8_t off_pixels[] = {
-	clear	_off_pixels+0
-	clear	_off_pixels+1
-	clear	_off_pixels+2
-	clear	_off_pixels+3
-	clear	_off_pixels+4
-	clear	_off_pixels+5
-	clear	_off_pixels+6
-	clear	_off_pixels+7
-	clear	_off_pixels+8
-	clear	_off_pixels+9
-	clear	_off_pixels+10
-	clear	_off_pixels+11
-;	main.c: 51: volatile uint8_t bytes = 12;
+	mov	_bright_blue_color+1, a
+	mov	a, #0x10
+	mov	_bright_blue_color+0, a
+	mov	a, #0x80
+	mov	_bright_blue_color+2, a
+;	main.c: 29: color_t off_color = {.r=0, .g=0, .b=0};
+	clear	_off_color+1
+	clear	_off_color+0
+	clear	_off_color+2
+;	main.c: 34: volatile uint8_t bytes = LED_COUNT * 3;
 	mov	a, #0x0c
 	mov	_bytes+0, a
-;	main.c: 52: volatile uint8_t byte_t = 0;    
+;	main.c: 35: volatile uint8_t byte_t = 0;    
 	clear	_byte_t+0
-;	main.c: 53: volatile uint8_t * pixel_ptr = 0;  
-	clear	_pixel_ptr+0
-	clear	_pixel_ptr+1
-;	main.c: 54: volatile uint8_t byte_ctr = 0;
+;	main.c: 37: volatile uint8_t byte_ctr = 0;
 	clear	_byte_ctr+0
-;	main.c: 55: volatile uint8_t button_ctr = 0;
+;	main.c: 38: volatile uint8_t button_ctr = 0;
 	clear	_button_ctr+0
-;	main.c: 56: volatile uint8_t button_down = 0;
+;	main.c: 39: volatile uint8_t button_down = 0;
 	clear	_button_down+0
-;	main.c: 57: volatile uint8_t pattern_count = 0;
+;	main.c: 40: volatile uint8_t pattern_count = 0;
 	clear	_pattern_count+0
-;	main.c: 58: volatile uint8_t pattern_index = 0;
+;	main.c: 41: volatile uint8_t pattern_index = 0;
 	clear	_pattern_index+0
-;	main.c: 59: volatile uint8_t cnt = 0;
-	clear	_cnt+0
-;	main.c: 60: static     uint8_t tmp = 0;
-	clear	_tmp+0
+;	main.c: 42: volatile uint8_t pattern_step = 0;
+	clear	_pattern_step+0
+;	main.c: 43: volatile uint8_t tone_out_ctr = 0;
+	clear	_tone_out_ctr+0
+;	main.c: 44: volatile uint8_t tone_time = 0;
+	clear	_tone_time+0
 	.area GSFINAL
 	goto	__sdcc_program_startup
 ;--------------------------------------------------------
@@ -318,15 +304,111 @@ __sdcc_program_startup:
 ; code
 ;--------------------------------------------------------
 	.area CODE
-;	main.c: 63: void output_leds() 
+;	main.c: 47: void copy_to_buff(color_t pixel, uint8_t len) {
+;	-----------------------------------------
+;	 function copy_to_buff
+;	-----------------------------------------
+_copy_to_buff:
+;	main.c: 48: for (uint8_t i = 0; i < len ; i++) {
+	clear	_copy_to_buff_sloc0_1_0+0
+00103$:
+	mov	a, _copy_to_buff_sloc0_1_0+0
+	sub	a, _copy_to_buff_PARM_2+0
+	t1sn.io	f, c
+	ret
+00120$:
+;	main.c: 49: pixel_buff[i].r = pixel.r;
+	mov	a, _copy_to_buff_sloc0_1_0+0
+	sl	a
+	add	a, _copy_to_buff_sloc0_1_0+0
+	mov	_copy_to_buff_sloc1_1_0+0, a
+	mov	a, #(_pixel_buff + 0)
+	add	a, _copy_to_buff_sloc1_1_0+0
+	add	a, #0x01
+	push	af
+	mov	a, _copy_to_buff_PARM_1+1
+	mov	p, a
+	pop	af
+	xch	a, p
+	idxm	p, a
+;	main.c: 50: pixel_buff[i].g = pixel.g;
+	mov	a, #(_pixel_buff + 0)
+	add	a, _copy_to_buff_sloc1_1_0+0
+	push	af
+	mov	a, _copy_to_buff_PARM_1+0
+	mov	p, a
+	pop	af
+	xch	a, p
+	idxm	p, a
+;	main.c: 51: pixel_buff[i].b = pixel.b;
+	mov	a, #(_pixel_buff + 0)
+	add	a, _copy_to_buff_sloc1_1_0+0
+	add	a, #0x02
+	push	af
+	mov	a, _copy_to_buff_PARM_1+2
+	mov	p, a
+	pop	af
+	xch	a, p
+	idxm	p, a
+;	main.c: 48: for (uint8_t i = 0; i < len ; i++) {
+	inc	_copy_to_buff_sloc0_1_0+0
+	goto	00103$
+;	main.c: 53: }
+	ret
+;	main.c: 55: void start_tone_out_startup() {
+;	-----------------------------------------
+;	 function start_tone_out_startup
+;	-----------------------------------------
+_start_tone_out_startup:
+;	main.c: 56: tone_out_ctr = 0;
+	clear	_tone_out_ctr+0
+;	main.c: 57: tone_time = STARTUP_TONE_TIME;
+;	main.c: 58: TM2B = STARTUP_BOUNDS;
+	mov a, #0x0a
+	mov  _tone_time+0, a
+	mov.io	__tm2b, a
+;	main.c: 59: TM2C |= TM2C_CLK_IHRC;
+	set1.io	__tm2c, #5
+;	main.c: 60: }
+	ret
+;	main.c: 62: void start_tone_out_button() {
+;	-----------------------------------------
+;	 function start_tone_out_button
+;	-----------------------------------------
+_start_tone_out_button:
+;	main.c: 63: tone_out_ctr = 0;
+	clear	_tone_out_ctr+0
+;	main.c: 64: tone_time = BUTTON_TONE_TIME;
+;	main.c: 65: TM2B = BUTTON_BOUNDS;
+	mov a, #0x05
+	mov  _tone_time+0, a
+	mov.io	__tm2b, a
+;	main.c: 66: TM2C |= TM2C_CLK_IHRC;
+	set1.io	__tm2c, #5
+;	main.c: 67: }
+	ret
+;	main.c: 69: void stop_tone_out() {
+;	-----------------------------------------
+;	 function stop_tone_out
+;	-----------------------------------------
+_stop_tone_out:
+;	main.c: 70: tone_time = 0;
+	clear	_tone_time+0
+;	main.c: 71: TM2C &= 0x0F; //0 out the top 4 bits for clock source
+	mov.io	a, __tm2c
+	and	a, #0x0f
+	mov.io	__tm2c, a
+;	main.c: 72: }
+	ret
+;	main.c: 74: void output_leds() 
 ;	-----------------------------------------
 ;	 function output_leds
 ;	-----------------------------------------
 _output_leds:
-;	main.c: 99: __endasm;
+;	main.c: 110: __endasm;
 	mov	a, _bytes ;move our byte count into a
 	mov	_byte_ctr, a ;move a into our index counter
-	mov	a, _pixel_ptr ;load the address of the array into a
+	mov	a, #(_pixel_buff) ;load the address of the array into a
 	mov	p, a ;put that address into p (a mem location)
 00010$:
 	idxm	a, p ;load the byte data from the array into a
@@ -345,94 +427,248 @@ _output_leds:
 	goto	00011$ ;jump back to 00011
 	dzsn	_byte_ctr ;dec our index counter and skip the goto if 0
 	goto	00010$ ;goto the next byte
-;	main.c: 100: }
+;	main.c: 111: }
 	ret
-;	main.c: 102: void update_pattern() 
+;	main.c: 113: void update_pattern() 
 ;	-----------------------------------------
 ;	 function update_pattern
 ;	-----------------------------------------
 _update_pattern:
-;	main.c: 105: switch (pattern_index)
+;	main.c: 118: switch (pattern_index)
 	mov	a, _pattern_index+0
 	cneqsn	a, #0x00
 	goto	00101$
-00126$:
+00169$:
 	cneqsn	a, #0x01
 	goto	00102$
-00128$:
+00171$:
 	cneqsn	a, #0x02
 	goto	00103$
-00130$:
-	ret
-;	main.c: 107: case 0:
+00173$:
+	goto	00104$
+;	main.c: 120: case 0:            
 00101$:
-;	main.c: 108: pixel_ptr = off_pixels;
-	mov	a, #(_off_pixels + 0)
-	mov	_pixel_ptr+0, a
-	clear	_pixel_ptr+1
-;	main.c: 109: break;            
+;	main.c: 121: copy_to_buff(off_color, LED_COUNT);            
+	mov	a, #(_off_color + 0)
+	mov	___memcpy_PARM_2+0, a
+	clear	___memcpy_PARM_2+1
+	mov	a, #(_copy_to_buff_PARM_1 + 0)
+	mov	___memcpy_PARM_1+0, a
+	clear	___memcpy_PARM_1+1
+	mov	a, #0x03
+	mov	___memcpy_PARM_3+0, a
+	clear	___memcpy_PARM_3+1
+	call	___memcpy
+	mov	a, #0x04
+	mov	_copy_to_buff_PARM_2+0, a
+	goto	_copy_to_buff
+;	main.c: 122: return;         
 	ret
-;	main.c: 110: case 1:
+;	main.c: 123: case 1:
 00102$:
-;	main.c: 111: pixel_ptr = blue_pixels;
-	mov	a, #(_blue_pixels + 0)
-	mov	_pixel_ptr+0, a
-	clear	_pixel_ptr+1
-;	main.c: 112: break;            
-	ret
-;	main.c: 113: case 2:
+;	main.c: 124: copy_to_buff(blue_color, LED_COUNT);
+	mov	a, #(_blue_color + 0)
+	mov	___memcpy_PARM_2+0, a
+	clear	___memcpy_PARM_2+1
+	mov	a, #(_copy_to_buff_PARM_1 + 0)
+	mov	___memcpy_PARM_1+0, a
+	clear	___memcpy_PARM_1+1
+	mov	a, #0x03
+	mov	___memcpy_PARM_3+0, a
+	clear	___memcpy_PARM_3+1
+	call	___memcpy
+	mov	a, #0x04
+	mov	_copy_to_buff_PARM_2+0, a
+	call	_copy_to_buff
+;	main.c: 125: bright = bright_blue_color;
+	mov	a, #(_update_pattern_bright_10000_19 + 0)
+	mov	___memcpy_PARM_1+0, a
+	clear	___memcpy_PARM_1+1
+	mov	a, #(_bright_blue_color + 0)
+	mov	___memcpy_PARM_2+0, a
+	clear	___memcpy_PARM_2+1
+	mov	a, #0x03
+	mov	___memcpy_PARM_3+0, a
+	clear	___memcpy_PARM_3+1
+	call	___memcpy
+;	main.c: 126: break;            
+	goto	00104$
+;	main.c: 127: case 2:
 00103$:
-;	main.c: 114: pixel_ptr = orange_pixels;
-	mov	a, #(_orange_pixels + 0)
-	mov	_pixel_ptr+0, a
-	clear	_pixel_ptr+1
-;	main.c: 116: }
-;	main.c: 118: }
+;	main.c: 128: copy_to_buff(orange_color, LED_COUNT);
+	mov	a, #(_orange_color + 0)
+	mov	___memcpy_PARM_2+0, a
+	clear	___memcpy_PARM_2+1
+	mov	a, #(_copy_to_buff_PARM_1 + 0)
+	mov	___memcpy_PARM_1+0, a
+	clear	___memcpy_PARM_1+1
+	mov	a, #0x03
+	mov	___memcpy_PARM_3+0, a
+	clear	___memcpy_PARM_3+1
+	call	___memcpy
+	mov	a, #0x04
+	mov	_copy_to_buff_PARM_2+0, a
+	call	_copy_to_buff
+;	main.c: 129: bright = bright_orange_color;
+	mov	a, #(_update_pattern_bright_10000_19 + 0)
+	mov	___memcpy_PARM_1+0, a
+	clear	___memcpy_PARM_1+1
+	mov	a, #(_bright_orange_color + 0)
+	mov	___memcpy_PARM_2+0, a
+	clear	___memcpy_PARM_2+1
+	mov	a, #0x03
+	mov	___memcpy_PARM_3+0, a
+	clear	___memcpy_PARM_3+1
+	call	___memcpy
+;	main.c: 131: }
+00104$:
+;	main.c: 133: pattern_step++;
+	mov	a, _pattern_step+0
+	add	a, #0x01
+	mov	_pattern_step+0, a
+;	main.c: 135: switch (pattern_step)
+	mov	a, _pattern_step+0
+	cneqsn	a, #0x01
+	goto	00105$
+00175$:
+	cneqsn	a, #0x03
+	goto	00106$
+00177$:
+	cneqsn	a, #0x04
+	goto	00107$
+00179$:
+	cneqsn	a, #0x06
+	goto	00109$
+00181$:
+	cneqsn	a, #0x07
+	goto	00109$
+00183$:
+	cneqsn	a, #0x0a
+	goto	00110$
+00185$:
 	ret
-;	main.c: 120: void main(void) {
+;	main.c: 137: case 1:
+00105$:
+;	main.c: 138: pixel_buff[0] = bright;
+	mov	a, #(_pixel_buff + 0)
+	mov	___memcpy_PARM_1+0, a
+	clear	___memcpy_PARM_1+1
+	mov	a, #(_update_pattern_bright_10000_19 + 0)
+	mov	___memcpy_PARM_2+0, a
+	clear	___memcpy_PARM_2+1
+	mov	a, #0x03
+	mov	___memcpy_PARM_3+0, a
+	clear	___memcpy_PARM_3+1
+	goto	___memcpy
+;	main.c: 139: break;
+	ret
+;	main.c: 140: case 3:
+00106$:
+;	main.c: 141: pixel_buff[1] = bright;
+	mov	a, #(_pixel_buff + 3)
+	mov	___memcpy_PARM_1+0, a
+	clear	___memcpy_PARM_1+1
+	mov	a, #(_update_pattern_bright_10000_19 + 0)
+	mov	___memcpy_PARM_2+0, a
+	clear	___memcpy_PARM_2+1
+	mov	a, #0x03
+	mov	___memcpy_PARM_3+0, a
+	clear	___memcpy_PARM_3+1
+	goto	___memcpy
+;	main.c: 142: break;    
+	ret
+;	main.c: 143: case 4:
+00107$:
+;	main.c: 144: pixel_buff[2] = bright;
+	mov	a, #(_pixel_buff + 6)
+	mov	___memcpy_PARM_1+0, a
+	clear	___memcpy_PARM_1+1
+	mov	a, #(_update_pattern_bright_10000_19 + 0)
+	mov	___memcpy_PARM_2+0, a
+	clear	___memcpy_PARM_2+1
+	mov	a, #0x03
+	mov	___memcpy_PARM_3+0, a
+	clear	___memcpy_PARM_3+1
+	goto	___memcpy
+;	main.c: 145: break;   
+	ret
+;	main.c: 147: case 7:
+00109$:
+;	main.c: 148: pixel_buff[3] = bright;
+	mov	a, #(_pixel_buff + 9)
+	mov	___memcpy_PARM_1+0, a
+	clear	___memcpy_PARM_1+1
+	mov	a, #(_update_pattern_bright_10000_19 + 0)
+	mov	___memcpy_PARM_2+0, a
+	clear	___memcpy_PARM_2+1
+	mov	a, #0x03
+	mov	___memcpy_PARM_3+0, a
+	clear	___memcpy_PARM_3+1
+	goto	___memcpy
+;	main.c: 149: break;                
+	ret
+;	main.c: 150: case 10:
+00110$:
+;	main.c: 151: pattern_step = 0;
+	clear	_pattern_step+0
+;	main.c: 153: } 
+;	main.c: 156: }
+	ret
+;	main.c: 158: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	main.c: 122: __disgint();
+;	main.c: 160: __disgint();
 	disgint
-;	main.c: 123: CLKMD |= 0x10;           //First enable IHRC
+;	main.c: 161: CLKMD |= 0x10;           //First enable IHRC
 	set1.io	__clkmd, #4
-;	main.c: 124: CLKMD = 0x34;           //Switch to IHRC/2 but leave ILRC on
+;	main.c: 162: CLKMD = 0x34;           //Switch to IHRC/2 but leave ILRC on
 	mov	a, #0x34
 	mov.io	__clkmd, a
-;	main.c: 125: CLKMD &= ~(CLKMD_ENABLE_WATCHDOG);
+;	main.c: 163: CLKMD &= ~(CLKMD_ENABLE_WATCHDOG);
 	set0.io	__clkmd, #1
-;	main.c: 126: PAC = LED_bm; //Pin 5 as out
+;	main.c: 164: PAC = LED_bm; //Pin 5 as out
 	mov	a, #0x20
 	mov.io	__pac, a
-;	main.c: 127: PAPL = BTN_bm; //Pull Pin 4 low internally
+;	main.c: 165: PAPL = BTN_bm; //Pull Pin 4 low internally
 	mov	a, #0x10
 	mov.io	__papl, a
-;	main.c: 128: PAC &= ~(BTN_bm); //Pin 4 as in
+;	main.c: 166: PAC &= ~(BTN_bm); //Pin 4 as in
 	set0.io	__pac, #4
-;	main.c: 129: PADIER |= BTN_bm; //Enable digital in
+;	main.c: 167: PADIER |= BTN_bm; //Enable digital in
 	set1.io	__padier, #4
-;	main.c: 132: INTEN = INTEN_TM2;
-	mov	a, #0x40
+;	main.c: 170: INTEN = INTEN_TM3;
+	mov	a, #0x80
 	mov.io	__inten, a
-;	main.c: 135: TM2B = 10;
+;	main.c: 173: TM3B = 10;
+	mov	a, #0x0a
+	mov.io	__tm3b, a
+;	main.c: 174: TM3C = TM3C_CLK_ILRC | TM3C_OUT_DISABLE | TM3C_MODE_PERIOD;
+	mov	a, #0x40
+	mov.io	__tm3c, a
+;	main.c: 175: TM3S = TM3S_PRESCALE_DIV64; //should also start the timer
+	mov	a, #0x60
+	mov.io	__tm3s, a
+;	main.c: 177: TM2B = 10;
 	mov	a, #0x0a
 	mov.io	__tm2b, a
-;	main.c: 136: TM2C = TM2C_CLK_ILRC | TM2C_OUT_DISABLE | TM2C_MODE_PERIOD;
-	mov	a, #0x40
+;	main.c: 178: TM2C = TM2C_CLK_DISABLE | TM2C_OUT_PA3 | TM3C_MODE_PERIOD;
+	mov	a, #0x08
 	mov.io	__tm2c, a
-;	main.c: 137: TM2S = TM2S_PRESCALE_DIV64; //should also start the timer
-	mov	a, #0x60
+;	main.c: 179: TM2S = TM2S_PRESCALE_DIV16;
+	mov	a, #0x40
 	mov.io	__tm2s, a
-;	main.c: 138: __engint();
+;	main.c: 181: __engint();
 	engint
-;	main.c: 144: while(1);
+;	main.c: 184: start_tone_out_startup();
+	call	_start_tone_out_startup
+;	main.c: 186: while(1) ;
 00102$:
 	goto	00102$
-;	main.c: 145: }
+;	main.c: 187: }
 	ret
-;	main.c: 147: void interrupt(void) __interrupt(0) {
+;	main.c: 189: void interrupt(void) __interrupt(0) {
 ;	-----------------------------------------
 ;	 function interrupt
 ;	-----------------------------------------
@@ -440,32 +676,32 @@ _interrupt:
 	push	af
 	mov	a, p
 	push	af
-;	main.c: 149: if( INTRQ & INTRQ_TM2 ) //Timer2 interrupt request?
-	t1sn.io	__intrq, #6
-	goto	00112$
-00144$:
-;	main.c: 152: if (PA & BTN_bm) {
+;	main.c: 191: if( INTRQ & INTRQ_TM3 ) //Timer3 interrupt request
+	t1sn.io	__intrq, #7
+	goto	00116$
+00160$:
+;	main.c: 194: if (PA & BTN_bm) {
 	t1sn.io	__pa, #4
 	goto	00106$
-00145$:
-;	main.c: 154: if (!button_down)
+00161$:
+;	main.c: 196: if (!button_down)
 	mov	a, _button_down+0
 	ceqsn	a, #0x00
 	goto	00107$
-00146$:
-;	main.c: 156: button_ctr++;
+00162$:
+;	main.c: 198: button_ctr++;
 	mov	a, _button_ctr+0
 	add	a, #0x01
 	mov	_button_ctr+0, a
-;	main.c: 158: if (button_ctr == BTN_DEBOUNCE_DELAY)
+;	main.c: 200: if (button_ctr == BTN_DEBOUNCE_DELAY)
 	mov	a, _button_ctr+0
 	ceqsn	a, #0x05
 	goto	00107$
-00147$:
-;	main.c: 160: button_down = 1;
+00163$:
+;	main.c: 202: button_down = 1;
 	mov	a, #0x01
 	mov	_button_down+0, a
-;	main.c: 161: pattern_index = (pattern_index + 1) % 3;             
+;	main.c: 203: pattern_index = (pattern_index + 1) % 3;      
 	mov	a, _pattern_index+0
 	add	a, #0x01
 	mov	__modsint_PARM_1+0, a
@@ -477,33 +713,53 @@ _interrupt:
 	clear	__modsint_PARM_2+1
 	call	__modsint
 	mov	_pattern_index+0, a
+;	main.c: 204: pattern_step = 0;     
+	clear	_pattern_step+0
+;	main.c: 205: start_tone_out_button();  
+	call	_start_tone_out_button
 	goto	00107$
 00106$:
-;	main.c: 170: button_ctr = 0;
+;	main.c: 214: button_ctr = 0;
 	clear	_button_ctr+0
-;	main.c: 171: button_down = 0;
+;	main.c: 215: button_down = 0;
 	clear	_button_down+0
 00107$:
-;	main.c: 174: pattern_count++;
+;	main.c: 218: pattern_count++;
 	mov	a, _pattern_count+0
 	add	a, #0x01
 	mov	_pattern_count+0, a
-;	main.c: 176: if (pattern_count == PATTERN_UPDATE_DELAY) 
+;	main.c: 220: if (pattern_count == PATTERN_UPDATE_DELAY) 
 	mov	a, _pattern_count+0
 	ceqsn	a, #0x32
 	goto	00109$
-00148$:
-;	main.c: 178: update_pattern();
+00164$:
+;	main.c: 222: update_pattern();
 	call	_update_pattern
-;	main.c: 179: output_leds();
+;	main.c: 223: output_leds();
 	call	_output_leds
-;	main.c: 180: pattern_count = 0;
+;	main.c: 224: pattern_count = 0;
 	clear	_pattern_count+0
 00109$:
-;	main.c: 203: INTRQ &= ~INTRQ_TM2; //Clear interrupt flag
-	set0.io	__intrq, #6
-00112$:
-;	main.c: 206: }
+;	main.c: 227: if (tone_time) {
+	mov	a, _tone_time+0
+	cneqsn	a, #0x00
+	goto	00113$
+00165$:
+;	main.c: 228: tone_out_ctr++;
+	mov	a, _tone_out_ctr+0
+	add	a, #0x01
+	mov	_tone_out_ctr+0, a
+;	main.c: 230: if (tone_out_ctr >= tone_time) {
+	mov	a, _tone_out_ctr+0
+	sub	a, _tone_time+0
+;	main.c: 231: stop_tone_out();
+	t1sn.io	f, c
+	call	_stop_tone_out
+00113$:
+;	main.c: 237: INTRQ &= ~INTRQ_TM3; //Clear interrupt flag
+	set0.io	__intrq, #7
+00116$:
+;	main.c: 240: }
 	pop	af
 	mov	p, a
 	pop	af

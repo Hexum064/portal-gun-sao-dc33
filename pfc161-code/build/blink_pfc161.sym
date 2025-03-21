@@ -82,21 +82,21 @@ Symbol Table
   1 _copy_to_buff_PARM_2                                           000028 GR
   1 _copy_to_buff_sloc0_1_0                                        000029 R
   1 _copy_to_buff_sloc1_1_0                                        00002A R
-  F _interrupt                                                     0001D6 GR
-  F _main                                                          00019C GR
+  F _interrupt                                                     0001DA GR
+  F _main                                                          0001A0 GR
   1 _off_color                                                     00000C GR
   1 _orange_color                                                  000000 GR
-  F _output_leds                                                   00006E GR
+  F _output_leds                                                   000072 GR
   1 _pattern_count                                                 000020 GR
   1 _pattern_index                                                 000021 GR
   1 _pattern_step                                                  000022 GR
   1 _pixel_buff                                                    00000F GR
-  F _start_tone_out_button                                         000058 GR
+  F _start_tone_out_button                                         00005A GR
   F _start_tone_out_startup                                        00004C GR
-  F _stop_tone_out                                                 000064 GR
+  F _stop_tone_out                                                 000068 GR
   1 _tone_out_ctr                                                  000023 GR
   1 _tone_time                                                     000024 GR
-  F _update_pattern                                                000094 GR
+  F _update_pattern                                                000098 GR
   1 _update_pattern_bright_10000_19                                00002B R
     l_DATA                                                         ****** GX
     l_OSEG                                                         ****** GX
@@ -125,7 +125,7 @@ Area Table
    C PREG                                       size      0   flags    8
    D PREG2                                      size      2   flags    8
    E HEADER3                                    size     14   flags    8
-   F CODE                                       size    24A   flags    0
+   F CODE                                       size    256   flags    0
   10 CONST                                      size      0   flags    0
   11 CABS                                       size      0   flags    8
 

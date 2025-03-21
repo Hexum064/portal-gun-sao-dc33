@@ -1,10 +1,10 @@
 ;--------------------------------------------------------
-; File Created by SDCC : free open source ISO C Compiler
-; Version 4.4.4 #15018 (MINGW32)
+; File Created by SDCC : free open source ISO C Compiler 
+; Version 4.4.0 #14620 (Linux)
 ;--------------------------------------------------------
 	.module main
-	
 	.optsdcc -mpdk14
+	
 
 ; default segment ordering in RAM for linker
 	.area DATA
@@ -315,7 +315,7 @@ _copy_to_buff:
 	mov	a, _copy_to_buff_sloc0_1_0+0
 	sub	a, _copy_to_buff_PARM_2+0
 	t1sn.io	f, c
-	ret
+	goto	00105$
 00120$:
 ;	main.c: 49: pixel_buff[i].r = pixel.r;
 	mov	a, _copy_to_buff_sloc0_1_0+0
@@ -353,6 +353,7 @@ _copy_to_buff:
 ;	main.c: 48: for (uint8_t i = 0; i < len ; i++) {
 	inc	_copy_to_buff_sloc0_1_0+0
 	goto	00103$
+00105$:
 ;	main.c: 53: }
 	ret
 ;	main.c: 55: void start_tone_out_startup() {
@@ -363,9 +364,10 @@ _start_tone_out_startup:
 ;	main.c: 56: tone_out_ctr = 0;
 	clear	_tone_out_ctr+0
 ;	main.c: 57: tone_time = STARTUP_TONE_TIME;
+	mov	a, #0x0a
+	mov	_tone_time+0, a
 ;	main.c: 58: TM2B = STARTUP_BOUNDS;
-	mov a, #0x0a
-	mov  _tone_time+0, a
+	mov	a, #0x0a
 	mov.io	__tm2b, a
 ;	main.c: 59: TM2C |= TM2C_CLK_IHRC;
 	set1.io	__tm2c, #5
@@ -379,9 +381,10 @@ _start_tone_out_button:
 ;	main.c: 63: tone_out_ctr = 0;
 	clear	_tone_out_ctr+0
 ;	main.c: 64: tone_time = BUTTON_TONE_TIME;
+	mov	a, #0x05
+	mov	_tone_time+0, a
 ;	main.c: 65: TM2B = BUTTON_BOUNDS;
-	mov a, #0x05
-	mov  _tone_time+0, a
+	mov	a, #0x05
 	mov.io	__tm2b, a
 ;	main.c: 66: TM2C |= TM2C_CLK_IHRC;
 	set1.io	__tm2c, #5
@@ -546,7 +549,7 @@ _update_pattern:
 	cneqsn	a, #0x0a
 	goto	00110$
 00185$:
-	ret
+	goto	00112$
 ;	main.c: 137: case 1:
 00105$:
 ;	main.c: 138: pixel_buff[0] = bright;
@@ -561,7 +564,7 @@ _update_pattern:
 	clear	___memcpy_PARM_3+1
 	goto	___memcpy
 ;	main.c: 139: break;
-	ret
+	goto	00112$
 ;	main.c: 140: case 3:
 00106$:
 ;	main.c: 141: pixel_buff[1] = bright;
@@ -576,7 +579,7 @@ _update_pattern:
 	clear	___memcpy_PARM_3+1
 	goto	___memcpy
 ;	main.c: 142: break;    
-	ret
+	goto	00112$
 ;	main.c: 143: case 4:
 00107$:
 ;	main.c: 144: pixel_buff[2] = bright;
@@ -591,7 +594,7 @@ _update_pattern:
 	clear	___memcpy_PARM_3+1
 	goto	___memcpy
 ;	main.c: 145: break;   
-	ret
+	goto	00112$
 ;	main.c: 147: case 7:
 00109$:
 ;	main.c: 148: pixel_buff[3] = bright;
@@ -606,12 +609,13 @@ _update_pattern:
 	clear	___memcpy_PARM_3+1
 	goto	___memcpy
 ;	main.c: 149: break;                
-	ret
+	goto	00112$
 ;	main.c: 150: case 10:
 00110$:
 ;	main.c: 151: pattern_step = 0;
 	clear	_pattern_step+0
 ;	main.c: 153: } 
+00112$:
 ;	main.c: 156: }
 	ret
 ;	main.c: 158: void main(void) {
@@ -677,11 +681,15 @@ _interrupt:
 	mov	a, p
 	push	af
 ;	main.c: 191: if( INTRQ & INTRQ_TM3 ) //Timer3 interrupt request
-	t1sn.io	__intrq, #7
+	mov.io	a, __intrq
+	and	a, #0x80
+	cneqsn	a, #0x00
 	goto	00116$
 00160$:
 ;	main.c: 194: if (PA & BTN_bm) {
-	t1sn.io	__pa, #4
+	mov.io	a, __pa
+	and	a, #0x10
+	cneqsn	a, #0x00
 	goto	00106$
 00161$:
 ;	main.c: 196: if (!button_down)

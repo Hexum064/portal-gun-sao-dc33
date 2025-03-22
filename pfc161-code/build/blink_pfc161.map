@@ -95,8 +95,8 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000005A  l_GSINIT                        
      0000007E  s_GSFINAL                       
      00000080  s_CODE                          
-     00000390  l_CODE                          
-     00000410  s_CONST                         
+     00000384  l_CODE                          
+     00000404  s_CONST                         
 ASxxxx Linker V03.00/V05.40 + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
@@ -223,23 +223,23 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CODE                                00000080    00000390 =         912. bytes (REL,CON)
+CODE                                00000080    00000384 =         900. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000080  _copy_to_buff                      main
      000000CC  _start_tone_out_startup            main
-     000000DA  _start_tone_out_button             main
-     000000E8  _stop_tone_out                     main
-     000000F2  _output_leds                       main
-     00000118  _update_pattern                    main
-     00000220  _main                              main
-     0000025A  _interrupt                         main
-     000002D6  ___memcpy                          __memcpy
-     00000328  __modsint                          _modsint
-     0000039A  __moduint                          _moduint
-     000003F6  ___sdcc_external_startup           _startup
-     000003F8  __gptrget                          __gptrget
+     000000D8  _start_tone_out_button             main
+     000000E4  _stop_tone_out                     main
+     000000EE  _output_leds                       main
+     00000114  _update_pattern                    main
+     0000021C  _main                              main
+     00000256  _interrupt                         main
+     000002CA  ___memcpy                          __memcpy
+     0000031C  __modsint                          _modsint
+     0000038E  __moduint                          _moduint
+     000003EA  ___sdcc_external_startup           _startup
+     000003EC  __gptrget                          __gptrget
 
 ASxxxx Linker V03.00/V05.40 + sdld,  page 14.
 
@@ -250,15 +250,15 @@ build/blink_pfc161.rel                    [ main ]
 
 Libraries Linked                          [ object file ]
 
-/usr/bin/../share/sdcc/lib/pdk14/pdk14.lib
+M:\repos\padauk\SDCC\bin\..\lib\pdk14/pdk14.lib
                                           [ __memcpy.rel ]
-/usr/bin/../share/sdcc/lib/pdk14/pdk14.lib
+M:\repos\padauk\SDCC\bin\..\lib\pdk14/pdk14.lib
                                           [ _modsint.rel ]
-/usr/bin/../share/sdcc/lib/pdk14/pdk14.lib
+M:\repos\padauk\SDCC\bin\..\lib\pdk14/pdk14.lib
                                           [ _moduint.rel ]
-/usr/bin/../share/sdcc/lib/pdk14/pdk14.lib
+M:\repos\padauk\SDCC\bin\..\lib\pdk14/pdk14.lib
                                           [ _startup.rel ]
-/usr/bin/../share/sdcc/lib/pdk14/pdk14.lib
+M:\repos\padauk\SDCC\bin\..\lib\pdk14/pdk14.lib
                                           [ __gptrget.rel ]
 
 ASxxxx Linker V03.00/V05.40 + sdld,  page 15.

@@ -1,21 +1,15 @@
 SDCC ?= sdcc
 OUTDIR=build
-IC=pfc161
-PROG_NAME=blink_pfc161
 
-all: clean build flash
+all:
+	mkdir -p $(OUTDIR)
+	$(SDCC) -DPFC161 -mpdk14 -o $(OUTDIR)/blink_pfc161.ihx main.c
 	
+PMS150C:
+	mkdir -p $(OUTDIR)
+	$(SDCC) -DPMS150C -mpdk13 -o $(OUTDIR)/blink_pms150c.ihx main.c
+
 clean:
 	rm -rf $(OUTDIR)
-
-build:
-	mkdir -p $(OUTDIR)
-	$(SDCC) -DPFC161 -mpdk14 -o $(OUTDIR)/$(PROG_NAME).ihx main.c
-
-flash:
-	easypdkprog --icname=$(IC) write $(OUTDIR)/$(PROG_NAME).ihx
-
-power:
-	easypdkprog --runvdd=3.3 start
 
 .PHONY: all clean

@@ -1,10 +1,10 @@
                                       1 ;--------------------------------------------------------
-                                      2 ; File Created by SDCC : free open source ISO C Compiler 
-                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      2 ; File Created by SDCC : free open source ISO C Compiler
+                                      3 ; Version 4.4.4 #15018 (MINGW32)
                                       4 ;--------------------------------------------------------
                                       5 	.module main
-                                      6 	.optsdcc -mpdk14
-                                      7 	
+                                      6 	
+                                      7 	.optsdcc -mpdk14
                                       8 
                                       9 ; default segment ordering in RAM for linker
                                      10 	.area DATA
@@ -202,7 +202,7 @@
       000000                        202 __interrupt_vect:
                                     203 	.area	HEADER (ABS)
       000020                        204 	.org	 0x0020
-      000020rDAr31                  205 	goto	_interrupt
+      000020rD6r31                  205 	goto	_interrupt
                                     206 ;--------------------------------------------------------
                                     207 ; global & static initialisations
                                     208 ;--------------------------------------------------------
@@ -298,7 +298,7 @@
                                     298 	.area HOME
                                     299 	.area HOME
       000000                        300 __sdcc_program_startup:
-      000000rA0r31                  301 	goto	_main
+      000000r9Cr31                  301 	goto	_main
                                     302 ;	return from main will return to caller
                                     303 ;--------------------------------------------------------
                                     304 ; code
@@ -315,7 +315,7 @@
       000002rA9r0F                  315 	mov	a, _copy_to_buff_sloc0_1_0+0
       000004rA8r0C                  316 	sub	a, _copy_to_buff_PARM_2+0
       000006 40 1A                  317 	t1sn.io	f, c
-      000008r4Ar30                  318 	goto	00105$
+      000008 7A 00                  318 	ret
       00000A                        319 00120$:
                                     320 ;	main.c: 49: pixel_buff[i].r = pixel.r;
       00000ArA9r0F                  321 	mov	a, _copy_to_buff_sloc0_1_0+0
@@ -353,425 +353,417 @@
                                     353 ;	main.c: 48: for (uint8_t i = 0; i < len ; i++) {
       000046r29r12                  354 	inc	_copy_to_buff_sloc0_1_0+0
       000048r02r30                  355 	goto	00103$
-      00004A                        356 00105$:
-                                    357 ;	main.c: 53: }
-      00004A 7A 00                  358 	ret
-                                    359 ;	main.c: 55: void start_tone_out_startup() {
-                                    360 ;	-----------------------------------------
-                                    361 ;	 function start_tone_out_startup
-                                    362 ;	-----------------------------------------
-      00004C                        363 _start_tone_out_startup:
-                                    364 ;	main.c: 56: tone_out_ctr = 0;
-      00004Cr23r13                  365 	clear	_tone_out_ctr+0
-                                    366 ;	main.c: 57: tone_time = STARTUP_TONE_TIME;
-      00004E 0A 2F                  367 	mov	a, #0x0a
-      000050rA4r0B                  368 	mov	_tone_time+0, a
-                                    369 ;	main.c: 58: TM2B = STARTUP_BOUNDS;
-      000052 0A 2F                  370 	mov	a, #0x0a
-      000054 9F 01                  371 	mov.io	__tm2b, a
-                                    372 ;	main.c: 59: TM2C |= TM2C_CLK_IHRC;
-      000056 5C 1F                  373 	set1.io	__tm2c, #5
-                                    374 ;	main.c: 60: }
-      000058 7A 00                  375 	ret
-                                    376 ;	main.c: 62: void start_tone_out_button() {
+                                    356 ;	main.c: 53: }
+      00004A 7A 00                  357 	ret
+                                    358 ;	main.c: 55: void start_tone_out_startup() {
+                                    359 ;	-----------------------------------------
+                                    360 ;	 function start_tone_out_startup
+                                    361 ;	-----------------------------------------
+      00004C                        362 _start_tone_out_startup:
+                                    363 ;	main.c: 56: tone_out_ctr = 0;
+      00004Cr23r13                  364 	clear	_tone_out_ctr+0
+                                    365 ;	main.c: 57: tone_time = STARTUP_TONE_TIME;
+                                    366 ;	main.c: 58: TM2B = STARTUP_BOUNDS;
+      00004E 0A 2F                  367 	mov a, #0x0a
+      000050rA4r0B                  368 	mov  _tone_time+0, a
+      000052 9F 01                  369 	mov.io	__tm2b, a
+                                    370 ;	main.c: 59: TM2C |= TM2C_CLK_IHRC;
+      000054 5C 1F                  371 	set1.io	__tm2c, #5
+                                    372 ;	main.c: 60: }
+      000056 7A 00                  373 	ret
+                                    374 ;	main.c: 62: void start_tone_out_button() {
+                                    375 ;	-----------------------------------------
+                                    376 ;	 function start_tone_out_button
                                     377 ;	-----------------------------------------
-                                    378 ;	 function start_tone_out_button
-                                    379 ;	-----------------------------------------
-      00005A                        380 _start_tone_out_button:
-                                    381 ;	main.c: 63: tone_out_ctr = 0;
-      00005Ar23r13                  382 	clear	_tone_out_ctr+0
-                                    383 ;	main.c: 64: tone_time = BUTTON_TONE_TIME;
-      00005C 05 2F                  384 	mov	a, #0x05
-      00005ErA4r0B                  385 	mov	_tone_time+0, a
-                                    386 ;	main.c: 65: TM2B = BUTTON_BOUNDS;
-      000060 05 2F                  387 	mov	a, #0x05
-      000062 9F 01                  388 	mov.io	__tm2b, a
-                                    389 ;	main.c: 66: TM2C |= TM2C_CLK_IHRC;
-      000064 5C 1F                  390 	set1.io	__tm2c, #5
-                                    391 ;	main.c: 67: }
-      000066 7A 00                  392 	ret
-                                    393 ;	main.c: 69: void stop_tone_out() {
-                                    394 ;	-----------------------------------------
-                                    395 ;	 function stop_tone_out
-                                    396 ;	-----------------------------------------
-      000068                        397 _stop_tone_out:
-                                    398 ;	main.c: 70: tone_time = 0;
-      000068r24r13                  399 	clear	_tone_time+0
-                                    400 ;	main.c: 71: TM2C &= 0x0F; //0 out the top 4 bits for clock source
-      00006A DC 01                  401 	mov.io	a, __tm2c
-      00006C 0F 2C                  402 	and	a, #0x0f
-      00006E 9C 01                  403 	mov.io	__tm2c, a
-                                    404 ;	main.c: 72: }
-      000070 7A 00                  405 	ret
-                                    406 ;	main.c: 74: void output_leds() 
-                                    407 ;	-----------------------------------------
-                                    408 ;	 function output_leds
-                                    409 ;	-----------------------------------------
-      000072                        410 _output_leds:
-                                    411 ;	main.c: 110: __endasm;
-      000072r9Br0F                  412 	mov	a, _bytes ;move our byte count into a
-      000074r9Dr0B                  413 	mov	_byte_ctr, a ;move a into our index counter
-      000076r0Fr2F                  414 	mov	a, #(_pixel_buff) ;load the address of the array into a
-      000078r80r0B                  415 	mov	p, a ;put that address into p (a mem location)
-      00007A                        416 00010$:
-      00007Ar81r03                  417 	idxm	a, p ;load the byte data from the array into a
-      00007Cr00r12                  418 	inc	p ;inc p to the next address
-      00007Er9Cr0B                  419 	mov	_byte_t+0, a ;load the byte data into byte_t
-      000080 08 2F                  420 	mov	a, #0x08 ;reset the bit count
-      000082                        421 00011$:
-                                    422 ;output	bit
-      000082 50 1F                  423 	set1.io	__pa, #5 ;set the output pin high
-      000084rDCr23                  424 	t1sn	_byte_t, #7 ;if the current MSB is 1, skip setting the pin low now
-      000086 50 1D                  425 	set0.io	__pa, #5 ;set the output pin low
-      000088 00 00                  426 	nop	;wait one cycle
-      00008A 50 1D                  427 	set0.io	__pa, #5 ;set the output pin low
-      00008Cr9Cr15                  428 	sl	_byte_t ;left-shift the data byte (the LEDs are MSB first)
-      00008E 63 00                  429 	dzsn	a ;dec a and skip next instruction if 0
-      000090r82r30                  430 	goto	00011$ ;jump back to 00011
-      000092r9Dr11                  431 	dzsn	_byte_ctr ;dec our index counter and skip the goto if 0
-      000094r7Ar30                  432 	goto	00010$ ;goto the next byte
-                                    433 ;	main.c: 111: }
-      000096 7A 00                  434 	ret
-                                    435 ;	main.c: 113: void update_pattern() 
-                                    436 ;	-----------------------------------------
-                                    437 ;	 function update_pattern
-                                    438 ;	-----------------------------------------
-      000098                        439 _update_pattern:
-                                    440 ;	main.c: 118: switch (pattern_index)
-      000098rA1r0F                  441 	mov	a, _pattern_index+0
-      00009A 00 2B                  442 	cneqsn	a, #0x00
-      00009CrA8r30                  443 	goto	00101$
-      00009E                        444 00169$:
-      00009E 01 2B                  445 	cneqsn	a, #0x01
-      0000A0rC4r30                  446 	goto	00102$
-      0000A2                        447 00171$:
-      0000A2 02 2B                  448 	cneqsn	a, #0x02
-      0000A4rF4r30                  449 	goto	00103$
-      0000A6                        450 00173$:
-      0000A6r22r31                  451 	goto	00104$
-                                    452 ;	main.c: 120: case 0:            
-      0000A8                        453 00101$:
-                                    454 ;	main.c: 121: copy_to_buff(off_color, LED_COUNT);            
-      0000A8r0Cr2F                  455 	mov	a, #(_off_color + 0)
-      0000AAr80r0B                  456 	mov	___memcpy_PARM_2+0, a
-      0000ACr01r13                  457 	clear	___memcpy_PARM_2+1
-      0000AEr25r2F                  458 	mov	a, #(_copy_to_buff_PARM_1 + 0)
-      0000B0r80r0B                  459 	mov	___memcpy_PARM_1+0, a
-      0000B2r01r13                  460 	clear	___memcpy_PARM_1+1
-      0000B4 03 2F                  461 	mov	a, #0x03
-      0000B6r80r0B                  462 	mov	___memcpy_PARM_3+0, a
-      0000B8r01r13                  463 	clear	___memcpy_PARM_3+1
-      0000BAr00r38                  464 	call	___memcpy
-      0000BC 04 2F                  465 	mov	a, #0x04
-      0000BErA8r0B                  466 	mov	_copy_to_buff_PARM_2+0, a
-      0000C0r00r30                  467 	goto	_copy_to_buff
-                                    468 ;	main.c: 122: return;         
-      0000C2 7A 00                  469 	ret
-                                    470 ;	main.c: 123: case 1:
-      0000C4                        471 00102$:
-                                    472 ;	main.c: 124: copy_to_buff(blue_color, LED_COUNT);
-      0000C4r03r2F                  473 	mov	a, #(_blue_color + 0)
-      0000C6r80r0B                  474 	mov	___memcpy_PARM_2+0, a
-      0000C8r01r13                  475 	clear	___memcpy_PARM_2+1
-      0000CAr25r2F                  476 	mov	a, #(_copy_to_buff_PARM_1 + 0)
-      0000CCr80r0B                  477 	mov	___memcpy_PARM_1+0, a
-      0000CEr01r13                  478 	clear	___memcpy_PARM_1+1
-      0000D0 03 2F                  479 	mov	a, #0x03
-      0000D2r80r0B                  480 	mov	___memcpy_PARM_3+0, a
-      0000D4r01r13                  481 	clear	___memcpy_PARM_3+1
-      0000D6r00r38                  482 	call	___memcpy
-      0000D8 04 2F                  483 	mov	a, #0x04
-      0000DArA8r0B                  484 	mov	_copy_to_buff_PARM_2+0, a
-      0000DCr00r38                  485 	call	_copy_to_buff
-                                    486 ;	main.c: 125: bright = bright_blue_color;
-      0000DEr2Br2F                  487 	mov	a, #(_update_pattern_bright_10000_19 + 0)
-      0000E0r80r0B                  488 	mov	___memcpy_PARM_1+0, a
-      0000E2r01r13                  489 	clear	___memcpy_PARM_1+1
-      0000E4r09r2F                  490 	mov	a, #(_bright_blue_color + 0)
-      0000E6r80r0B                  491 	mov	___memcpy_PARM_2+0, a
-      0000E8r01r13                  492 	clear	___memcpy_PARM_2+1
-      0000EA 03 2F                  493 	mov	a, #0x03
-      0000ECr80r0B                  494 	mov	___memcpy_PARM_3+0, a
-      0000EEr01r13                  495 	clear	___memcpy_PARM_3+1
-      0000F0r00r38                  496 	call	___memcpy
-                                    497 ;	main.c: 126: break;            
-      0000F2r22r31                  498 	goto	00104$
-                                    499 ;	main.c: 127: case 2:
-      0000F4                        500 00103$:
-                                    501 ;	main.c: 128: copy_to_buff(orange_color, LED_COUNT);
-      0000F4r00r2F                  502 	mov	a, #(_orange_color + 0)
-      0000F6r80r0B                  503 	mov	___memcpy_PARM_2+0, a
-      0000F8r01r13                  504 	clear	___memcpy_PARM_2+1
-      0000FAr25r2F                  505 	mov	a, #(_copy_to_buff_PARM_1 + 0)
-      0000FCr80r0B                  506 	mov	___memcpy_PARM_1+0, a
-      0000FEr01r13                  507 	clear	___memcpy_PARM_1+1
-      000100 03 2F                  508 	mov	a, #0x03
-      000102r80r0B                  509 	mov	___memcpy_PARM_3+0, a
-      000104r01r13                  510 	clear	___memcpy_PARM_3+1
-      000106r00r38                  511 	call	___memcpy
-      000108 04 2F                  512 	mov	a, #0x04
-      00010ArA8r0B                  513 	mov	_copy_to_buff_PARM_2+0, a
-      00010Cr00r38                  514 	call	_copy_to_buff
-                                    515 ;	main.c: 129: bright = bright_orange_color;
-      00010Er2Br2F                  516 	mov	a, #(_update_pattern_bright_10000_19 + 0)
-      000110r80r0B                  517 	mov	___memcpy_PARM_1+0, a
-      000112r01r13                  518 	clear	___memcpy_PARM_1+1
-      000114r06r2F                  519 	mov	a, #(_bright_orange_color + 0)
-      000116r80r0B                  520 	mov	___memcpy_PARM_2+0, a
-      000118r01r13                  521 	clear	___memcpy_PARM_2+1
-      00011A 03 2F                  522 	mov	a, #0x03
-      00011Cr80r0B                  523 	mov	___memcpy_PARM_3+0, a
-      00011Er01r13                  524 	clear	___memcpy_PARM_3+1
-      000120r00r38                  525 	call	___memcpy
-                                    526 ;	main.c: 131: }
-      000122                        527 00104$:
-                                    528 ;	main.c: 133: pattern_step++;
-      000122rA2r0F                  529 	mov	a, _pattern_step+0
-      000124 01 28                  530 	add	a, #0x01
-      000126rA2r0B                  531 	mov	_pattern_step+0, a
-                                    532 ;	main.c: 135: switch (pattern_step)
-      000128rA2r0F                  533 	mov	a, _pattern_step+0
-      00012A 01 2B                  534 	cneqsn	a, #0x01
-      00012Cr44r31                  535 	goto	00105$
-      00012E                        536 00175$:
-      00012E 03 2B                  537 	cneqsn	a, #0x03
-      000130r5Ar31                  538 	goto	00106$
-      000132                        539 00177$:
-      000132 04 2B                  540 	cneqsn	a, #0x04
-      000134r70r31                  541 	goto	00107$
-      000136                        542 00179$:
-      000136 06 2B                  543 	cneqsn	a, #0x06
-      000138r86r31                  544 	goto	00109$
-      00013A                        545 00181$:
-      00013A 07 2B                  546 	cneqsn	a, #0x07
-      00013Cr86r31                  547 	goto	00109$
-      00013E                        548 00183$:
-      00013E 0A 2B                  549 	cneqsn	a, #0x0a
-      000140r9Cr31                  550 	goto	00110$
-      000142                        551 00185$:
-      000142r9Er31                  552 	goto	00112$
-                                    553 ;	main.c: 137: case 1:
-      000144                        554 00105$:
-                                    555 ;	main.c: 138: pixel_buff[0] = bright;
-      000144r0Fr2F                  556 	mov	a, #(_pixel_buff + 0)
-      000146r80r0B                  557 	mov	___memcpy_PARM_1+0, a
-      000148r01r13                  558 	clear	___memcpy_PARM_1+1
-      00014Ar2Br2F                  559 	mov	a, #(_update_pattern_bright_10000_19 + 0)
-      00014Cr80r0B                  560 	mov	___memcpy_PARM_2+0, a
-      00014Er01r13                  561 	clear	___memcpy_PARM_2+1
-      000150 03 2F                  562 	mov	a, #0x03
-      000152r80r0B                  563 	mov	___memcpy_PARM_3+0, a
-      000154r01r13                  564 	clear	___memcpy_PARM_3+1
-      000156r00r30                  565 	goto	___memcpy
-                                    566 ;	main.c: 139: break;
-      000158r9Er31                  567 	goto	00112$
-                                    568 ;	main.c: 140: case 3:
-      00015A                        569 00106$:
-                                    570 ;	main.c: 141: pixel_buff[1] = bright;
-      00015Ar12r2F                  571 	mov	a, #(_pixel_buff + 3)
-      00015Cr80r0B                  572 	mov	___memcpy_PARM_1+0, a
-      00015Er01r13                  573 	clear	___memcpy_PARM_1+1
-      000160r2Br2F                  574 	mov	a, #(_update_pattern_bright_10000_19 + 0)
-      000162r80r0B                  575 	mov	___memcpy_PARM_2+0, a
-      000164r01r13                  576 	clear	___memcpy_PARM_2+1
-      000166 03 2F                  577 	mov	a, #0x03
-      000168r80r0B                  578 	mov	___memcpy_PARM_3+0, a
-      00016Ar01r13                  579 	clear	___memcpy_PARM_3+1
-      00016Cr00r30                  580 	goto	___memcpy
-                                    581 ;	main.c: 142: break;    
-      00016Er9Er31                  582 	goto	00112$
-                                    583 ;	main.c: 143: case 4:
-      000170                        584 00107$:
-                                    585 ;	main.c: 144: pixel_buff[2] = bright;
-      000170r15r2F                  586 	mov	a, #(_pixel_buff + 6)
-      000172r80r0B                  587 	mov	___memcpy_PARM_1+0, a
-      000174r01r13                  588 	clear	___memcpy_PARM_1+1
-      000176r2Br2F                  589 	mov	a, #(_update_pattern_bright_10000_19 + 0)
-      000178r80r0B                  590 	mov	___memcpy_PARM_2+0, a
-      00017Ar01r13                  591 	clear	___memcpy_PARM_2+1
-      00017C 03 2F                  592 	mov	a, #0x03
-      00017Er80r0B                  593 	mov	___memcpy_PARM_3+0, a
-      000180r01r13                  594 	clear	___memcpy_PARM_3+1
-      000182r00r30                  595 	goto	___memcpy
-                                    596 ;	main.c: 145: break;   
-      000184r9Er31                  597 	goto	00112$
-                                    598 ;	main.c: 147: case 7:
-      000186                        599 00109$:
-                                    600 ;	main.c: 148: pixel_buff[3] = bright;
-      000186r18r2F                  601 	mov	a, #(_pixel_buff + 9)
-      000188r80r0B                  602 	mov	___memcpy_PARM_1+0, a
-      00018Ar01r13                  603 	clear	___memcpy_PARM_1+1
-      00018Cr2Br2F                  604 	mov	a, #(_update_pattern_bright_10000_19 + 0)
-      00018Er80r0B                  605 	mov	___memcpy_PARM_2+0, a
-      000190r01r13                  606 	clear	___memcpy_PARM_2+1
-      000192 03 2F                  607 	mov	a, #0x03
-      000194r80r0B                  608 	mov	___memcpy_PARM_3+0, a
-      000196r01r13                  609 	clear	___memcpy_PARM_3+1
-      000198r00r30                  610 	goto	___memcpy
-                                    611 ;	main.c: 149: break;                
-      00019Ar9Er31                  612 	goto	00112$
-                                    613 ;	main.c: 150: case 10:
-      00019C                        614 00110$:
-                                    615 ;	main.c: 151: pattern_step = 0;
-      00019Cr22r13                  616 	clear	_pattern_step+0
-                                    617 ;	main.c: 153: } 
-      00019E                        618 00112$:
-                                    619 ;	main.c: 156: }
-      00019E 7A 00                  620 	ret
-                                    621 ;	main.c: 158: void main(void) {
-                                    622 ;	-----------------------------------------
-                                    623 ;	 function main
-                                    624 ;	-----------------------------------------
-      0001A0                        625 _main:
-                                    626 ;	main.c: 160: __disgint();
-      0001A0 79 00                  627 	disgint
-                                    628 ;	main.c: 161: CLKMD |= 0x10;           //First enable IHRC
-      0001A2 03 1F                  629 	set1.io	__clkmd, #4
-                                    630 ;	main.c: 162: CLKMD = 0x34;           //Switch to IHRC/2 but leave ILRC on
-      0001A4 34 2F                  631 	mov	a, #0x34
-      0001A6 83 01                  632 	mov.io	__clkmd, a
-                                    633 ;	main.c: 163: CLKMD &= ~(CLKMD_ENABLE_WATCHDOG);
-      0001A8 43 1C                  634 	set0.io	__clkmd, #1
-                                    635 ;	main.c: 164: PAC = LED_bm; //Pin 5 as out
-      0001AA 20 2F                  636 	mov	a, #0x20
-      0001AC 91 01                  637 	mov.io	__pac, a
-                                    638 ;	main.c: 165: PAPL = BTN_bm; //Pull Pin 4 low internally
-      0001AE 10 2F                  639 	mov	a, #0x10
-      0001B0 93 01                  640 	mov.io	__papl, a
-                                    641 ;	main.c: 166: PAC &= ~(BTN_bm); //Pin 4 as in
-      0001B2 11 1D                  642 	set0.io	__pac, #4
-                                    643 ;	main.c: 167: PADIER |= BTN_bm; //Enable digital in
-      0001B4 0D 1F                  644 	set1.io	__padier, #4
-                                    645 ;	main.c: 170: INTEN = INTEN_TM3;
-      0001B6 80 2F                  646 	mov	a, #0x80
-      0001B8 84 01                  647 	mov.io	__inten, a
-                                    648 ;	main.c: 173: TM3B = 10;
-      0001BA 0A 2F                  649 	mov	a, #0x0a
-      0001BC B5 01                  650 	mov.io	__tm3b, a
-                                    651 ;	main.c: 174: TM3C = TM3C_CLK_ILRC | TM3C_OUT_DISABLE | TM3C_MODE_PERIOD;
-      0001BE 40 2F                  652 	mov	a, #0x40
-      0001C0 B2 01                  653 	mov.io	__tm3c, a
-                                    654 ;	main.c: 175: TM3S = TM3S_PRESCALE_DIV64; //should also start the timer
-      0001C2 60 2F                  655 	mov	a, #0x60
-      0001C4 B4 01                  656 	mov.io	__tm3s, a
-                                    657 ;	main.c: 177: TM2B = 10;
-      0001C6 0A 2F                  658 	mov	a, #0x0a
-      0001C8 9F 01                  659 	mov.io	__tm2b, a
-                                    660 ;	main.c: 178: TM2C = TM2C_CLK_DISABLE | TM2C_OUT_PA3 | TM3C_MODE_PERIOD;
-      0001CA 08 2F                  661 	mov	a, #0x08
-      0001CC 9C 01                  662 	mov.io	__tm2c, a
-                                    663 ;	main.c: 179: TM2S = TM2S_PRESCALE_DIV16;
-      0001CE 40 2F                  664 	mov	a, #0x40
-      0001D0 9E 01                  665 	mov.io	__tm2s, a
-                                    666 ;	main.c: 181: __engint();
-      0001D2 78 00                  667 	engint
-                                    668 ;	main.c: 184: start_tone_out_startup();
-      0001D4r4Cr38                  669 	call	_start_tone_out_startup
-                                    670 ;	main.c: 186: while(1) ;
-      0001D6                        671 00102$:
-      0001D6rD6r31                  672 	goto	00102$
-                                    673 ;	main.c: 187: }
-      0001D8 7A 00                  674 	ret
-                                    675 ;	main.c: 189: void interrupt(void) __interrupt(0) {
-                                    676 ;	-----------------------------------------
-                                    677 ;	 function interrupt
-                                    678 ;	-----------------------------------------
-      0001DA                        679 _interrupt:
-      0001DA 72 00                  680 	push	af
-      0001DCr80r0F                  681 	mov	a, p
-      0001DE 72 00                  682 	push	af
-                                    683 ;	main.c: 191: if( INTRQ & INTRQ_TM3 ) //Timer3 interrupt request
-      0001E0 C5 01                  684 	mov.io	a, __intrq
-      0001E2 80 2C                  685 	and	a, #0x80
-      0001E4 00 2B                  686 	cneqsn	a, #0x00
-      0001E6r4Er32                  687 	goto	00116$
-      0001E8                        688 00160$:
-                                    689 ;	main.c: 194: if (PA & BTN_bm) {
-      0001E8 D0 01                  690 	mov.io	a, __pa
-      0001EA 10 2C                  691 	and	a, #0x10
-      0001EC 00 2B                  692 	cneqsn	a, #0x00
-      0001EEr22r32                  693 	goto	00106$
-      0001F0                        694 00161$:
-                                    695 ;	main.c: 196: if (!button_down)
-      0001F0r9Fr0F                  696 	mov	a, _button_down+0
-      0001F2 00 2A                  697 	ceqsn	a, #0x00
-      0001F4r26r32                  698 	goto	00107$
-      0001F6                        699 00162$:
-                                    700 ;	main.c: 198: button_ctr++;
-      0001F6r9Er0F                  701 	mov	a, _button_ctr+0
-      0001F8 01 28                  702 	add	a, #0x01
-      0001FAr9Er0B                  703 	mov	_button_ctr+0, a
-                                    704 ;	main.c: 200: if (button_ctr == BTN_DEBOUNCE_DELAY)
-      0001FCr9Er0F                  705 	mov	a, _button_ctr+0
-      0001FE 05 2A                  706 	ceqsn	a, #0x05
-      000200r26r32                  707 	goto	00107$
-      000202                        708 00163$:
-                                    709 ;	main.c: 202: button_down = 1;
-      000202 01 2F                  710 	mov	a, #0x01
-      000204r9Fr0B                  711 	mov	_button_down+0, a
-                                    712 ;	main.c: 203: pattern_index = (pattern_index + 1) % 3;      
-      000206rA1r0F                  713 	mov	a, _pattern_index+0
-      000208 01 28                  714 	add	a, #0x01
-      00020Ar80r0B                  715 	mov	__modsint_PARM_1+0, a
-      00020C 00 2F                  716 	mov	a, #0x00
-      00020E 60 00                  717 	addc	a
-      000210r81r0B                  718 	mov	__modsint_PARM_1+1, a
-      000212 03 2F                  719 	mov	a, #0x03
-      000214r80r0B                  720 	mov	__modsint_PARM_2+0, a
-      000216r01r13                  721 	clear	__modsint_PARM_2+1
-      000218r00r38                  722 	call	__modsint
-      00021ArA1r0B                  723 	mov	_pattern_index+0, a
-                                    724 ;	main.c: 204: pattern_step = 0;     
-      00021Cr22r13                  725 	clear	_pattern_step+0
-                                    726 ;	main.c: 205: start_tone_out_button();  
-      00021Er5Ar38                  727 	call	_start_tone_out_button
-      000220r26r32                  728 	goto	00107$
-      000222                        729 00106$:
-                                    730 ;	main.c: 214: button_ctr = 0;
-      000222r1Er13                  731 	clear	_button_ctr+0
-                                    732 ;	main.c: 215: button_down = 0;
-      000224r1Fr13                  733 	clear	_button_down+0
-      000226                        734 00107$:
-                                    735 ;	main.c: 218: pattern_count++;
-      000226rA0r0F                  736 	mov	a, _pattern_count+0
-      000228 01 28                  737 	add	a, #0x01
-      00022ArA0r0B                  738 	mov	_pattern_count+0, a
-                                    739 ;	main.c: 220: if (pattern_count == PATTERN_UPDATE_DELAY) 
-      00022CrA0r0F                  740 	mov	a, _pattern_count+0
-      00022E 32 2A                  741 	ceqsn	a, #0x32
-      000230r38r32                  742 	goto	00109$
-      000232                        743 00164$:
-                                    744 ;	main.c: 222: update_pattern();
-      000232r98r38                  745 	call	_update_pattern
-                                    746 ;	main.c: 223: output_leds();
-      000234r72r38                  747 	call	_output_leds
-                                    748 ;	main.c: 224: pattern_count = 0;
-      000236r20r13                  749 	clear	_pattern_count+0
-      000238                        750 00109$:
-                                    751 ;	main.c: 227: if (tone_time) {
-      000238rA4r0F                  752 	mov	a, _tone_time+0
-      00023A 00 2B                  753 	cneqsn	a, #0x00
-      00023Cr4Cr32                  754 	goto	00113$
-      00023E                        755 00165$:
-                                    756 ;	main.c: 228: tone_out_ctr++;
-      00023ErA3r0F                  757 	mov	a, _tone_out_ctr+0
-      000240 01 28                  758 	add	a, #0x01
-      000242rA3r0B                  759 	mov	_tone_out_ctr+0, a
-                                    760 ;	main.c: 230: if (tone_out_ctr >= tone_time) {
-      000244rA3r0F                  761 	mov	a, _tone_out_ctr+0
-      000246rA4r0C                  762 	sub	a, _tone_time+0
-                                    763 ;	main.c: 231: stop_tone_out();
-      000248 40 1A                  764 	t1sn.io	f, c
-      00024Ar68r38                  765 	call	_stop_tone_out
-      00024C                        766 00113$:
-                                    767 ;	main.c: 237: INTRQ &= ~INTRQ_TM3; //Clear interrupt flag
-      00024C C5 1D                  768 	set0.io	__intrq, #7
-      00024E                        769 00116$:
-                                    770 ;	main.c: 240: }
-      00024E 73 00                  771 	pop	af
-      000250r80r0B                  772 	mov	p, a
-      000252 73 00                  773 	pop	af
-      000254 7B 00                  774 	reti
-                                    775 	.area CODE
-                                    776 	.area CONST
-                                    777 	.area CABS (ABS)
+      000058                        378 _start_tone_out_button:
+                                    379 ;	main.c: 63: tone_out_ctr = 0;
+      000058r23r13                  380 	clear	_tone_out_ctr+0
+                                    381 ;	main.c: 64: tone_time = BUTTON_TONE_TIME;
+                                    382 ;	main.c: 65: TM2B = BUTTON_BOUNDS;
+      00005A 05 2F                  383 	mov a, #0x05
+      00005CrA4r0B                  384 	mov  _tone_time+0, a
+      00005E 9F 01                  385 	mov.io	__tm2b, a
+                                    386 ;	main.c: 66: TM2C |= TM2C_CLK_IHRC;
+      000060 5C 1F                  387 	set1.io	__tm2c, #5
+                                    388 ;	main.c: 67: }
+      000062 7A 00                  389 	ret
+                                    390 ;	main.c: 69: void stop_tone_out() {
+                                    391 ;	-----------------------------------------
+                                    392 ;	 function stop_tone_out
+                                    393 ;	-----------------------------------------
+      000064                        394 _stop_tone_out:
+                                    395 ;	main.c: 70: tone_time = 0;
+      000064r24r13                  396 	clear	_tone_time+0
+                                    397 ;	main.c: 71: TM2C &= 0x0F; //0 out the top 4 bits for clock source
+      000066 DC 01                  398 	mov.io	a, __tm2c
+      000068 0F 2C                  399 	and	a, #0x0f
+      00006A 9C 01                  400 	mov.io	__tm2c, a
+                                    401 ;	main.c: 72: }
+      00006C 7A 00                  402 	ret
+                                    403 ;	main.c: 74: void output_leds() 
+                                    404 ;	-----------------------------------------
+                                    405 ;	 function output_leds
+                                    406 ;	-----------------------------------------
+      00006E                        407 _output_leds:
+                                    408 ;	main.c: 110: __endasm;
+      00006Er9Br0F                  409 	mov	a, _bytes ;move our byte count into a
+      000070r9Dr0B                  410 	mov	_byte_ctr, a ;move a into our index counter
+      000072r0Fr2F                  411 	mov	a, #(_pixel_buff) ;load the address of the array into a
+      000074r80r0B                  412 	mov	p, a ;put that address into p (a mem location)
+      000076                        413 00010$:
+      000076r81r03                  414 	idxm	a, p ;load the byte data from the array into a
+      000078r00r12                  415 	inc	p ;inc p to the next address
+      00007Ar9Cr0B                  416 	mov	_byte_t+0, a ;load the byte data into byte_t
+      00007C 08 2F                  417 	mov	a, #0x08 ;reset the bit count
+      00007E                        418 00011$:
+                                    419 ;output	bit
+      00007E 50 1F                  420 	set1.io	__pa, #5 ;set the output pin high
+      000080rDCr23                  421 	t1sn	_byte_t, #7 ;if the current MSB is 1, skip setting the pin low now
+      000082 50 1D                  422 	set0.io	__pa, #5 ;set the output pin low
+      000084 00 00                  423 	nop	;wait one cycle
+      000086 50 1D                  424 	set0.io	__pa, #5 ;set the output pin low
+      000088r9Cr15                  425 	sl	_byte_t ;left-shift the data byte (the LEDs are MSB first)
+      00008A 63 00                  426 	dzsn	a ;dec a and skip next instruction if 0
+      00008Cr7Er30                  427 	goto	00011$ ;jump back to 00011
+      00008Er9Dr11                  428 	dzsn	_byte_ctr ;dec our index counter and skip the goto if 0
+      000090r76r30                  429 	goto	00010$ ;goto the next byte
+                                    430 ;	main.c: 111: }
+      000092 7A 00                  431 	ret
+                                    432 ;	main.c: 113: void update_pattern() 
+                                    433 ;	-----------------------------------------
+                                    434 ;	 function update_pattern
+                                    435 ;	-----------------------------------------
+      000094                        436 _update_pattern:
+                                    437 ;	main.c: 118: switch (pattern_index)
+      000094rA1r0F                  438 	mov	a, _pattern_index+0
+      000096 00 2B                  439 	cneqsn	a, #0x00
+      000098rA4r30                  440 	goto	00101$
+      00009A                        441 00169$:
+      00009A 01 2B                  442 	cneqsn	a, #0x01
+      00009CrC0r30                  443 	goto	00102$
+      00009E                        444 00171$:
+      00009E 02 2B                  445 	cneqsn	a, #0x02
+      0000A0rF0r30                  446 	goto	00103$
+      0000A2                        447 00173$:
+      0000A2r1Er31                  448 	goto	00104$
+                                    449 ;	main.c: 120: case 0:            
+      0000A4                        450 00101$:
+                                    451 ;	main.c: 121: copy_to_buff(off_color, LED_COUNT);            
+      0000A4r0Cr2F                  452 	mov	a, #(_off_color + 0)
+      0000A6r80r0B                  453 	mov	___memcpy_PARM_2+0, a
+      0000A8r01r13                  454 	clear	___memcpy_PARM_2+1
+      0000AAr25r2F                  455 	mov	a, #(_copy_to_buff_PARM_1 + 0)
+      0000ACr80r0B                  456 	mov	___memcpy_PARM_1+0, a
+      0000AEr01r13                  457 	clear	___memcpy_PARM_1+1
+      0000B0 03 2F                  458 	mov	a, #0x03
+      0000B2r80r0B                  459 	mov	___memcpy_PARM_3+0, a
+      0000B4r01r13                  460 	clear	___memcpy_PARM_3+1
+      0000B6r00r38                  461 	call	___memcpy
+      0000B8 04 2F                  462 	mov	a, #0x04
+      0000BArA8r0B                  463 	mov	_copy_to_buff_PARM_2+0, a
+      0000BCr00r30                  464 	goto	_copy_to_buff
+                                    465 ;	main.c: 122: return;         
+      0000BE 7A 00                  466 	ret
+                                    467 ;	main.c: 123: case 1:
+      0000C0                        468 00102$:
+                                    469 ;	main.c: 124: copy_to_buff(blue_color, LED_COUNT);
+      0000C0r03r2F                  470 	mov	a, #(_blue_color + 0)
+      0000C2r80r0B                  471 	mov	___memcpy_PARM_2+0, a
+      0000C4r01r13                  472 	clear	___memcpy_PARM_2+1
+      0000C6r25r2F                  473 	mov	a, #(_copy_to_buff_PARM_1 + 0)
+      0000C8r80r0B                  474 	mov	___memcpy_PARM_1+0, a
+      0000CAr01r13                  475 	clear	___memcpy_PARM_1+1
+      0000CC 03 2F                  476 	mov	a, #0x03
+      0000CEr80r0B                  477 	mov	___memcpy_PARM_3+0, a
+      0000D0r01r13                  478 	clear	___memcpy_PARM_3+1
+      0000D2r00r38                  479 	call	___memcpy
+      0000D4 04 2F                  480 	mov	a, #0x04
+      0000D6rA8r0B                  481 	mov	_copy_to_buff_PARM_2+0, a
+      0000D8r00r38                  482 	call	_copy_to_buff
+                                    483 ;	main.c: 125: bright = bright_blue_color;
+      0000DAr2Br2F                  484 	mov	a, #(_update_pattern_bright_10000_19 + 0)
+      0000DCr80r0B                  485 	mov	___memcpy_PARM_1+0, a
+      0000DEr01r13                  486 	clear	___memcpy_PARM_1+1
+      0000E0r09r2F                  487 	mov	a, #(_bright_blue_color + 0)
+      0000E2r80r0B                  488 	mov	___memcpy_PARM_2+0, a
+      0000E4r01r13                  489 	clear	___memcpy_PARM_2+1
+      0000E6 03 2F                  490 	mov	a, #0x03
+      0000E8r80r0B                  491 	mov	___memcpy_PARM_3+0, a
+      0000EAr01r13                  492 	clear	___memcpy_PARM_3+1
+      0000ECr00r38                  493 	call	___memcpy
+                                    494 ;	main.c: 126: break;            
+      0000EEr1Er31                  495 	goto	00104$
+                                    496 ;	main.c: 127: case 2:
+      0000F0                        497 00103$:
+                                    498 ;	main.c: 128: copy_to_buff(orange_color, LED_COUNT);
+      0000F0r00r2F                  499 	mov	a, #(_orange_color + 0)
+      0000F2r80r0B                  500 	mov	___memcpy_PARM_2+0, a
+      0000F4r01r13                  501 	clear	___memcpy_PARM_2+1
+      0000F6r25r2F                  502 	mov	a, #(_copy_to_buff_PARM_1 + 0)
+      0000F8r80r0B                  503 	mov	___memcpy_PARM_1+0, a
+      0000FAr01r13                  504 	clear	___memcpy_PARM_1+1
+      0000FC 03 2F                  505 	mov	a, #0x03
+      0000FEr80r0B                  506 	mov	___memcpy_PARM_3+0, a
+      000100r01r13                  507 	clear	___memcpy_PARM_3+1
+      000102r00r38                  508 	call	___memcpy
+      000104 04 2F                  509 	mov	a, #0x04
+      000106rA8r0B                  510 	mov	_copy_to_buff_PARM_2+0, a
+      000108r00r38                  511 	call	_copy_to_buff
+                                    512 ;	main.c: 129: bright = bright_orange_color;
+      00010Ar2Br2F                  513 	mov	a, #(_update_pattern_bright_10000_19 + 0)
+      00010Cr80r0B                  514 	mov	___memcpy_PARM_1+0, a
+      00010Er01r13                  515 	clear	___memcpy_PARM_1+1
+      000110r06r2F                  516 	mov	a, #(_bright_orange_color + 0)
+      000112r80r0B                  517 	mov	___memcpy_PARM_2+0, a
+      000114r01r13                  518 	clear	___memcpy_PARM_2+1
+      000116 03 2F                  519 	mov	a, #0x03
+      000118r80r0B                  520 	mov	___memcpy_PARM_3+0, a
+      00011Ar01r13                  521 	clear	___memcpy_PARM_3+1
+      00011Cr00r38                  522 	call	___memcpy
+                                    523 ;	main.c: 131: }
+      00011E                        524 00104$:
+                                    525 ;	main.c: 133: pattern_step++;
+      00011ErA2r0F                  526 	mov	a, _pattern_step+0
+      000120 01 28                  527 	add	a, #0x01
+      000122rA2r0B                  528 	mov	_pattern_step+0, a
+                                    529 ;	main.c: 135: switch (pattern_step)
+      000124rA2r0F                  530 	mov	a, _pattern_step+0
+      000126 01 2B                  531 	cneqsn	a, #0x01
+      000128r40r31                  532 	goto	00105$
+      00012A                        533 00175$:
+      00012A 03 2B                  534 	cneqsn	a, #0x03
+      00012Cr56r31                  535 	goto	00106$
+      00012E                        536 00177$:
+      00012E 04 2B                  537 	cneqsn	a, #0x04
+      000130r6Cr31                  538 	goto	00107$
+      000132                        539 00179$:
+      000132 06 2B                  540 	cneqsn	a, #0x06
+      000134r82r31                  541 	goto	00109$
+      000136                        542 00181$:
+      000136 07 2B                  543 	cneqsn	a, #0x07
+      000138r82r31                  544 	goto	00109$
+      00013A                        545 00183$:
+      00013A 0A 2B                  546 	cneqsn	a, #0x0a
+      00013Cr98r31                  547 	goto	00110$
+      00013E                        548 00185$:
+      00013E 7A 00                  549 	ret
+                                    550 ;	main.c: 137: case 1:
+      000140                        551 00105$:
+                                    552 ;	main.c: 138: pixel_buff[0] = bright;
+      000140r0Fr2F                  553 	mov	a, #(_pixel_buff + 0)
+      000142r80r0B                  554 	mov	___memcpy_PARM_1+0, a
+      000144r01r13                  555 	clear	___memcpy_PARM_1+1
+      000146r2Br2F                  556 	mov	a, #(_update_pattern_bright_10000_19 + 0)
+      000148r80r0B                  557 	mov	___memcpy_PARM_2+0, a
+      00014Ar01r13                  558 	clear	___memcpy_PARM_2+1
+      00014C 03 2F                  559 	mov	a, #0x03
+      00014Er80r0B                  560 	mov	___memcpy_PARM_3+0, a
+      000150r01r13                  561 	clear	___memcpy_PARM_3+1
+      000152r00r30                  562 	goto	___memcpy
+                                    563 ;	main.c: 139: break;
+      000154 7A 00                  564 	ret
+                                    565 ;	main.c: 140: case 3:
+      000156                        566 00106$:
+                                    567 ;	main.c: 141: pixel_buff[1] = bright;
+      000156r12r2F                  568 	mov	a, #(_pixel_buff + 3)
+      000158r80r0B                  569 	mov	___memcpy_PARM_1+0, a
+      00015Ar01r13                  570 	clear	___memcpy_PARM_1+1
+      00015Cr2Br2F                  571 	mov	a, #(_update_pattern_bright_10000_19 + 0)
+      00015Er80r0B                  572 	mov	___memcpy_PARM_2+0, a
+      000160r01r13                  573 	clear	___memcpy_PARM_2+1
+      000162 03 2F                  574 	mov	a, #0x03
+      000164r80r0B                  575 	mov	___memcpy_PARM_3+0, a
+      000166r01r13                  576 	clear	___memcpy_PARM_3+1
+      000168r00r30                  577 	goto	___memcpy
+                                    578 ;	main.c: 142: break;    
+      00016A 7A 00                  579 	ret
+                                    580 ;	main.c: 143: case 4:
+      00016C                        581 00107$:
+                                    582 ;	main.c: 144: pixel_buff[2] = bright;
+      00016Cr15r2F                  583 	mov	a, #(_pixel_buff + 6)
+      00016Er80r0B                  584 	mov	___memcpy_PARM_1+0, a
+      000170r01r13                  585 	clear	___memcpy_PARM_1+1
+      000172r2Br2F                  586 	mov	a, #(_update_pattern_bright_10000_19 + 0)
+      000174r80r0B                  587 	mov	___memcpy_PARM_2+0, a
+      000176r01r13                  588 	clear	___memcpy_PARM_2+1
+      000178 03 2F                  589 	mov	a, #0x03
+      00017Ar80r0B                  590 	mov	___memcpy_PARM_3+0, a
+      00017Cr01r13                  591 	clear	___memcpy_PARM_3+1
+      00017Er00r30                  592 	goto	___memcpy
+                                    593 ;	main.c: 145: break;   
+      000180 7A 00                  594 	ret
+                                    595 ;	main.c: 147: case 7:
+      000182                        596 00109$:
+                                    597 ;	main.c: 148: pixel_buff[3] = bright;
+      000182r18r2F                  598 	mov	a, #(_pixel_buff + 9)
+      000184r80r0B                  599 	mov	___memcpy_PARM_1+0, a
+      000186r01r13                  600 	clear	___memcpy_PARM_1+1
+      000188r2Br2F                  601 	mov	a, #(_update_pattern_bright_10000_19 + 0)
+      00018Ar80r0B                  602 	mov	___memcpy_PARM_2+0, a
+      00018Cr01r13                  603 	clear	___memcpy_PARM_2+1
+      00018E 03 2F                  604 	mov	a, #0x03
+      000190r80r0B                  605 	mov	___memcpy_PARM_3+0, a
+      000192r01r13                  606 	clear	___memcpy_PARM_3+1
+      000194r00r30                  607 	goto	___memcpy
+                                    608 ;	main.c: 149: break;                
+      000196 7A 00                  609 	ret
+                                    610 ;	main.c: 150: case 10:
+      000198                        611 00110$:
+                                    612 ;	main.c: 151: pattern_step = 0;
+      000198r22r13                  613 	clear	_pattern_step+0
+                                    614 ;	main.c: 153: } 
+                                    615 ;	main.c: 156: }
+      00019A 7A 00                  616 	ret
+                                    617 ;	main.c: 158: void main(void) {
+                                    618 ;	-----------------------------------------
+                                    619 ;	 function main
+                                    620 ;	-----------------------------------------
+      00019C                        621 _main:
+                                    622 ;	main.c: 160: __disgint();
+      00019C 79 00                  623 	disgint
+                                    624 ;	main.c: 161: CLKMD |= 0x10;           //First enable IHRC
+      00019E 03 1F                  625 	set1.io	__clkmd, #4
+                                    626 ;	main.c: 162: CLKMD = 0x34;           //Switch to IHRC/2 but leave ILRC on
+      0001A0 34 2F                  627 	mov	a, #0x34
+      0001A2 83 01                  628 	mov.io	__clkmd, a
+                                    629 ;	main.c: 163: CLKMD &= ~(CLKMD_ENABLE_WATCHDOG);
+      0001A4 43 1C                  630 	set0.io	__clkmd, #1
+                                    631 ;	main.c: 164: PAC = LED_bm; //Pin 5 as out
+      0001A6 20 2F                  632 	mov	a, #0x20
+      0001A8 91 01                  633 	mov.io	__pac, a
+                                    634 ;	main.c: 165: PAPL = BTN_bm; //Pull Pin 4 low internally
+      0001AA 10 2F                  635 	mov	a, #0x10
+      0001AC 93 01                  636 	mov.io	__papl, a
+                                    637 ;	main.c: 166: PAC &= ~(BTN_bm); //Pin 4 as in
+      0001AE 11 1D                  638 	set0.io	__pac, #4
+                                    639 ;	main.c: 167: PADIER |= BTN_bm; //Enable digital in
+      0001B0 0D 1F                  640 	set1.io	__padier, #4
+                                    641 ;	main.c: 170: INTEN = INTEN_TM3;
+      0001B2 80 2F                  642 	mov	a, #0x80
+      0001B4 84 01                  643 	mov.io	__inten, a
+                                    644 ;	main.c: 173: TM3B = 10;
+      0001B6 0A 2F                  645 	mov	a, #0x0a
+      0001B8 B5 01                  646 	mov.io	__tm3b, a
+                                    647 ;	main.c: 174: TM3C = TM3C_CLK_ILRC | TM3C_OUT_DISABLE | TM3C_MODE_PERIOD;
+      0001BA 40 2F                  648 	mov	a, #0x40
+      0001BC B2 01                  649 	mov.io	__tm3c, a
+                                    650 ;	main.c: 175: TM3S = TM3S_PRESCALE_DIV64; //should also start the timer
+      0001BE 60 2F                  651 	mov	a, #0x60
+      0001C0 B4 01                  652 	mov.io	__tm3s, a
+                                    653 ;	main.c: 177: TM2B = 10;
+      0001C2 0A 2F                  654 	mov	a, #0x0a
+      0001C4 9F 01                  655 	mov.io	__tm2b, a
+                                    656 ;	main.c: 178: TM2C = TM2C_CLK_DISABLE | TM2C_OUT_PA3 | TM3C_MODE_PERIOD;
+      0001C6 08 2F                  657 	mov	a, #0x08
+      0001C8 9C 01                  658 	mov.io	__tm2c, a
+                                    659 ;	main.c: 179: TM2S = TM2S_PRESCALE_DIV16;
+      0001CA 40 2F                  660 	mov	a, #0x40
+      0001CC 9E 01                  661 	mov.io	__tm2s, a
+                                    662 ;	main.c: 181: __engint();
+      0001CE 78 00                  663 	engint
+                                    664 ;	main.c: 184: start_tone_out_startup();
+      0001D0r4Cr38                  665 	call	_start_tone_out_startup
+                                    666 ;	main.c: 186: while(1) ;
+      0001D2                        667 00102$:
+      0001D2rD2r31                  668 	goto	00102$
+                                    669 ;	main.c: 187: }
+      0001D4 7A 00                  670 	ret
+                                    671 ;	main.c: 189: void interrupt(void) __interrupt(0) {
+                                    672 ;	-----------------------------------------
+                                    673 ;	 function interrupt
+                                    674 ;	-----------------------------------------
+      0001D6                        675 _interrupt:
+      0001D6 72 00                  676 	push	af
+      0001D8r80r0F                  677 	mov	a, p
+      0001DA 72 00                  678 	push	af
+                                    679 ;	main.c: 191: if( INTRQ & INTRQ_TM3 ) //Timer3 interrupt request
+      0001DC C5 1B                  680 	t1sn.io	__intrq, #7
+      0001DEr42r32                  681 	goto	00116$
+      0001E0                        682 00160$:
+                                    683 ;	main.c: 194: if (PA & BTN_bm) {
+      0001E0 10 1B                  684 	t1sn.io	__pa, #4
+      0001E2r16r32                  685 	goto	00106$
+      0001E4                        686 00161$:
+                                    687 ;	main.c: 196: if (!button_down)
+      0001E4r9Fr0F                  688 	mov	a, _button_down+0
+      0001E6 00 2A                  689 	ceqsn	a, #0x00
+      0001E8r1Ar32                  690 	goto	00107$
+      0001EA                        691 00162$:
+                                    692 ;	main.c: 198: button_ctr++;
+      0001EAr9Er0F                  693 	mov	a, _button_ctr+0
+      0001EC 01 28                  694 	add	a, #0x01
+      0001EEr9Er0B                  695 	mov	_button_ctr+0, a
+                                    696 ;	main.c: 200: if (button_ctr == BTN_DEBOUNCE_DELAY)
+      0001F0r9Er0F                  697 	mov	a, _button_ctr+0
+      0001F2 05 2A                  698 	ceqsn	a, #0x05
+      0001F4r1Ar32                  699 	goto	00107$
+      0001F6                        700 00163$:
+                                    701 ;	main.c: 202: button_down = 1;
+      0001F6 01 2F                  702 	mov	a, #0x01
+      0001F8r9Fr0B                  703 	mov	_button_down+0, a
+                                    704 ;	main.c: 203: pattern_index = (pattern_index + 1) % 3;      
+      0001FArA1r0F                  705 	mov	a, _pattern_index+0
+      0001FC 01 28                  706 	add	a, #0x01
+      0001FEr80r0B                  707 	mov	__modsint_PARM_1+0, a
+      000200 00 2F                  708 	mov	a, #0x00
+      000202 60 00                  709 	addc	a
+      000204r81r0B                  710 	mov	__modsint_PARM_1+1, a
+      000206 03 2F                  711 	mov	a, #0x03
+      000208r80r0B                  712 	mov	__modsint_PARM_2+0, a
+      00020Ar01r13                  713 	clear	__modsint_PARM_2+1
+      00020Cr00r38                  714 	call	__modsint
+      00020ErA1r0B                  715 	mov	_pattern_index+0, a
+                                    716 ;	main.c: 204: pattern_step = 0;     
+      000210r22r13                  717 	clear	_pattern_step+0
+                                    718 ;	main.c: 205: start_tone_out_button();  
+      000212r58r38                  719 	call	_start_tone_out_button
+      000214r1Ar32                  720 	goto	00107$
+      000216                        721 00106$:
+                                    722 ;	main.c: 214: button_ctr = 0;
+      000216r1Er13                  723 	clear	_button_ctr+0
+                                    724 ;	main.c: 215: button_down = 0;
+      000218r1Fr13                  725 	clear	_button_down+0
+      00021A                        726 00107$:
+                                    727 ;	main.c: 218: pattern_count++;
+      00021ArA0r0F                  728 	mov	a, _pattern_count+0
+      00021C 01 28                  729 	add	a, #0x01
+      00021ErA0r0B                  730 	mov	_pattern_count+0, a
+                                    731 ;	main.c: 220: if (pattern_count == PATTERN_UPDATE_DELAY) 
+      000220rA0r0F                  732 	mov	a, _pattern_count+0
+      000222 32 2A                  733 	ceqsn	a, #0x32
+      000224r2Cr32                  734 	goto	00109$
+      000226                        735 00164$:
+                                    736 ;	main.c: 222: update_pattern();
+      000226r94r38                  737 	call	_update_pattern
+                                    738 ;	main.c: 223: output_leds();
+      000228r6Er38                  739 	call	_output_leds
+                                    740 ;	main.c: 224: pattern_count = 0;
+      00022Ar20r13                  741 	clear	_pattern_count+0
+      00022C                        742 00109$:
+                                    743 ;	main.c: 227: if (tone_time) {
+      00022CrA4r0F                  744 	mov	a, _tone_time+0
+      00022E 00 2B                  745 	cneqsn	a, #0x00
+      000230r40r32                  746 	goto	00113$
+      000232                        747 00165$:
+                                    748 ;	main.c: 228: tone_out_ctr++;
+      000232rA3r0F                  749 	mov	a, _tone_out_ctr+0
+      000234 01 28                  750 	add	a, #0x01
+      000236rA3r0B                  751 	mov	_tone_out_ctr+0, a
+                                    752 ;	main.c: 230: if (tone_out_ctr >= tone_time) {
+      000238rA3r0F                  753 	mov	a, _tone_out_ctr+0
+      00023ArA4r0C                  754 	sub	a, _tone_time+0
+                                    755 ;	main.c: 231: stop_tone_out();
+      00023C 40 1A                  756 	t1sn.io	f, c
+      00023Er64r38                  757 	call	_stop_tone_out
+      000240                        758 00113$:
+                                    759 ;	main.c: 237: INTRQ &= ~INTRQ_TM3; //Clear interrupt flag
+      000240 C5 1D                  760 	set0.io	__intrq, #7
+      000242                        761 00116$:
+                                    762 ;	main.c: 240: }
+      000242 73 00                  763 	pop	af
+      000244r80r0B                  764 	mov	p, a
+      000246 73 00                  765 	pop	af
+      000248 7B 00                  766 	reti
+                                    767 	.area CODE
+                                    768 	.area CONST
+                                    769 	.area CABS (ABS)

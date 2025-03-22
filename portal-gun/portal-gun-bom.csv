@@ -1,0 +1,6 @@
+Designator,Comment,JLCPCB Part #,Footprint,Qty
+C1,.1uF,C282519,Capacitor_SMD:C_0603_1608Metric,1
+J1," Plugin,P=2.54mm 2x3",C7430309,Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical,1
+SW1,GT-TC050A-H050-L1,C5446831,Button_Switch_SMD:SW-SMD_GT-TC050C-H050-L1,1
+U1,PFC161-U06,C2909526,SOT-23-6,1
+"U2,U3,U4,U5",TX1813Y5,C3975084,"SMD,1.4x3.2mm RGB LEDs(Built-in IC) ROHS",4

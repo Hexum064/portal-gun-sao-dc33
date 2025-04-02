@@ -403,11 +403,11 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "LED:SK6812D-EC3210R"
+		(symbol "LED:TX1813Y5"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "LED"
+			(property "Reference" "U"
 				(at 0 0 0)
 				(effects
 					(font
@@ -423,7 +423,7 @@
 					)
 				)
 			)
-			(property "Footprint" "ProLib_pcs_2025-03-31:LED-SMD_4P_SK6812D-EC3210R"
+			(property "Footprint" "ProLib_pcs_2025-03-04:LED-SMD_5P-L3.2-W1.4_TX1813Y5"
 				(at 0 0 0)
 				(effects
 					(font
@@ -432,7 +432,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://atta.szlcsc.com/upload/public/pdf/source/20210825/B6C6473DD4EB626997615BE40306D761.pdf"
+			(property "Datasheet" "https://atta.szlcsc.com/upload/public/pdf/source/20230731/B199AA1137F26A0A13CD7CFD3D9A3FBA.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -450,7 +450,7 @@
 					(hide yes)
 				)
 			)
-			(property "Manufacturer Part" "SK6812D-EC3210R"
+			(property "Manufacturer Part" "TX1813Y5"
 				(at 0 0 0)
 				(effects
 					(font
@@ -459,7 +459,7 @@
 					(hide yes)
 				)
 			)
-			(property "Manufacturer" "欧思科光电"
+			(property "Manufacturer" "TCWIN(天成)"
 				(at 0 0 0)
 				(effects
 					(font
@@ -468,7 +468,7 @@
 					(hide yes)
 				)
 			)
-			(property "Supplier Part" "C2890041"
+			(property "Supplier Part" "C3975084"
 				(at 0 0 0)
 				(effects
 					(font
@@ -486,7 +486,7 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC Part Name" "RGB三色"
+			(property "LCSC Part Name" "TX1813Y5"
 				(at 0 0 0)
 				(effects
 					(font
@@ -495,10 +495,10 @@
 					(hide yes)
 				)
 			)
-			(symbol "SK6812D-EC3210R_1_0"
+			(symbol "TX1813Y5_1_0"
 				(rectangle
-					(start -7.62 -3.81)
-					(end 7.62 3.81)
+					(start -5.08 -7.62)
+					(end 5.08 7.62)
 					(stroke
 						(width 0)
 						(type default)
@@ -508,7 +508,7 @@
 					)
 				)
 				(circle
-					(center -6.35 2.54)
+					(center -3.81 6.35)
 					(radius 0.381)
 					(stroke
 						(width 0)
@@ -519,9 +519,9 @@
 					)
 				)
 				(pin unspecified line
-					(at -10.16 1.27 0)
+					(at -7.62 5.08 0)
 					(length 2.54)
-					(name "GND"
+					(name "DIN"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -537,9 +537,9 @@
 					)
 				)
 				(pin unspecified line
-					(at -10.16 -1.27 0)
+					(at -7.62 2.54 0)
 					(length 2.54)
-					(name "DOUT"
+					(name "VDD"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -555,9 +555,27 @@
 					)
 				)
 				(pin unspecified line
-					(at 10.16 1.27 180)
+					(at -7.62 0 0)
 					(length 2.54)
-					(name "VDD"
+					(name "FDIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "DO"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -573,16 +591,16 @@
 					)
 				)
 				(pin unspecified line
-					(at 10.16 -1.27 180)
+					(at -7.62 -5.08 0)
 					(length 2.54)
-					(name "DIN"
+					(name "GND"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "3"
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1145,10 +1163,48 @@
 		)
 	)
 	(junction
+		(at 53.34 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "22df1ac7-6c4b-430b-81cb-467b70ba7f21")
+	)
+	(junction
+		(at 53.34 72.39)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "72a5f09c-1992-405d-947c-41bcc796d2fd")
+	)
+	(junction
 		(at 128.27 64.77)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7c458e3f-1c96-4df3-af4a-063ba2c432c8")
+	)
+	(junction
+		(at 53.34 53.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bd272053-5b5f-4645-b430-9f2e1d07d177")
+	)
+	(wire
+		(pts
+			(xy 53.34 53.34) (xy 53.34 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07d29e01-8eb8-4813-af1c-fa549ce206ad")
+	)
+	(wire
+		(pts
+			(xy 60.96 77.47) (xy 57.15 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "09762524-e2bd-4ca2-946f-adf6de41c598")
 	)
 	(wire
 		(pts
@@ -1162,6 +1218,56 @@
 	)
 	(wire
 		(pts
+			(xy 53.34 72.39) (xy 53.34 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "104222fb-b586-4896-b377-c26948e9221f")
+	)
+	(wire
+		(pts
+			(xy 53.34 44.45) (xy 53.34 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "18e5a05a-3726-4df3-9ece-c3f9afddfd08")
+	)
+	(wire
+		(pts
+			(xy 60.96 50.8) (xy 60.96 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1b53bc21-4a5a-4872-850e-af542427c660")
+	)
+	(wire
+		(pts
+			(xy 57.15 88.9) (xy 60.96 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "239b0f45-a680-4a6c-938b-265df0a49d29")
+	)
+	(wire
+		(pts
+			(xy 53.34 72.39) (xy 60.96 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2e65383d-a31b-4d5c-a3d4-496e01429d15")
+	)
+	(wire
+		(pts
 			(xy 140.97 96.52) (xy 149.86 96.52)
 		)
 		(stroke
@@ -1172,6 +1278,16 @@
 	)
 	(wire
 		(pts
+			(xy 57.15 106.68) (xy 60.96 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "464b7893-61ab-412b-9673-ad319031807e")
+	)
+	(wire
+		(pts
 			(xy 60.96 45.72) (xy 115.57 45.72)
 		)
 		(stroke
@@ -1179,6 +1295,46 @@
 			(type default)
 		)
 		(uuid "4d689a4f-488f-4d58-bc23-9c676ef70118")
+	)
+	(wire
+		(pts
+			(xy 53.34 53.34) (xy 60.96 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e278c42-e9a8-4060-8357-2461aabf4cfa")
+	)
+	(wire
+		(pts
+			(xy 53.34 109.22) (xy 60.96 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d0c4c5e-202f-4219-94bf-45c11b401b7a")
+	)
+	(wire
+		(pts
+			(xy 57.15 96.52) (xy 57.15 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6eb144f0-3026-4f7a-bf9b-ee2e5f3e8db5")
+	)
+	(wire
+		(pts
+			(xy 53.34 91.44) (xy 60.96 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7351b906-44f3-4f21-a414-1cf1f1983eb4")
 	)
 	(wire
 		(pts
@@ -1212,13 +1368,43 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 132.08) (xy 60.96 144.78)
+			(xy 57.15 58.42) (xy 57.15 69.85)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "895e4a52-88ed-482c-a875-7b7a44529e4d")
+		(uuid "85b5ce74-c4da-4ad2-8100-22e47b03a247")
+	)
+	(wire
+		(pts
+			(xy 57.15 77.47) (xy 57.15 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ae38a92d-9a0a-4ba2-a9ba-eb26e4286432")
+	)
+	(wire
+		(pts
+			(xy 60.96 58.42) (xy 57.15 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b869b83b-6c45-48b3-b187-b61ba9d47fb7")
+	)
+	(wire
+		(pts
+			(xy 57.15 69.85) (xy 60.96 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce2a67a5-d456-48b8-8065-7e22fc75781d")
 	)
 	(wire
 		(pts
@@ -1242,23 +1428,13 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 66.04) (xy 60.96 78.74)
+			(xy 60.96 96.52) (xy 57.15 96.52)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d6bda19d-304e-4cf4-adcf-b5c8db4b875b")
-	)
-	(wire
-		(pts
-			(xy 60.96 99.06) (xy 60.96 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dbeeb22d-2b91-48eb-8b61-f62cf92f8b2a")
+		(uuid "e1010bbc-6c82-4279-8039-4b6315a72056")
 	)
 	(wire
 		(pts
@@ -1279,6 +1455,16 @@
 			(type default)
 		)
 		(uuid "f3fe67cd-df9b-4be9-b59c-b2614c067f9b")
+	)
+	(wire
+		(pts
+			(xy 53.34 91.44) (xy 53.34 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f76bf833-f5ff-4252-9db1-d373341c7e6a")
 	)
 	(wire
 		(pts
@@ -1357,35 +1543,35 @@
 		)
 	)
 	(symbol
-		(lib_id "LED:SK6812D-EC3210R")
-		(at 59.69 121.92 90)
+		(lib_id "LED:TX1813Y5")
+		(at 68.58 111.76 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "26c1a2b6-e456-4ad0-a21f-7a55ed08f44a")
-		(property "Reference" "LED3"
-			(at 64.135 121.4508 90)
+		(uuid "12d583cb-0fcc-4d2c-9690-e803c60d42c6")
+		(property "Reference" "U5"
+			(at 74.295 111.2908 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 64.135 123.1322 90)
+			(at 74.295 112.9722 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED-SMD_4P_SK6812D-EC3210R"
-			(at 59.69 121.92 0)
+		(property "Footprint" "LED_SMD:LED-SMD_5P-L3.2-W1.4_TX1813Y5"
+			(at 68.58 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1393,8 +1579,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://atta.szlcsc.com/upload/public/pdf/source/20210825/B6C6473DD4EB626997615BE40306D761.pdf"
-			(at 59.69 121.92 0)
+		(property "Datasheet" "https://atta.szlcsc.com/upload/public/pdf/source/20230731/B199AA1137F26A0A13CD7CFD3D9A3FBA.pdf"
+			(at 68.58 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1403,7 +1589,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 59.69 121.92 0)
+			(at 68.58 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1411,8 +1597,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer Part" "SK6812D-EC3210R"
-			(at 59.69 121.92 0)
+		(property "Manufacturer Part" "TX1813Y5"
+			(at 68.58 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1420,8 +1606,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "欧思科光电"
-			(at 59.69 121.92 0)
+		(property "Manufacturer" "TCWIN(天成)"
+			(at 68.58 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1429,8 +1615,8 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier Part" "C2890041"
-			(at 59.69 121.92 0)
+		(property "Supplier Part" "C3975084"
+			(at 68.58 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1439,7 +1625,7 @@
 			)
 		)
 		(property "Supplier" "LCSC"
-			(at 59.69 121.92 0)
+			(at 68.58 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1447,48 +1633,51 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part Name" "RGB三色"
-			(at 59.69 121.92 0)
+		(property "LCSC Part Name" "TX1813Y5"
+			(at 68.58 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(pin "1"
-			(uuid "ec94d558-f367-416b-85c7-5379e506dc6e")
-		)
-		(pin "3"
-			(uuid "22fa95f0-83bf-459e-9d7e-0abad8dd6d93")
 		)
 		(pin "2"
-			(uuid "0a6c00ac-35cb-4737-bac2-df57c4de0005")
+			(uuid "e00a25dc-22c1-489a-8377-eaa4f0864d84")
+		)
+		(pin "1"
+			(uuid "93ca8f1d-d78f-41c3-a6de-7b8c03743f76")
+		)
+		(pin "5"
+			(uuid "a39feec4-afd7-4f08-b32f-1592d3738523")
 		)
 		(pin "4"
-			(uuid "521b4c70-4b26-42ae-ab71-701776801bb0")
+			(uuid "87897f13-bf3c-4657-a722-a0aaaf507ace")
+		)
+		(pin "3"
+			(uuid "c5516a07-43e4-4de6-bce3-f04fa4ee5ab9")
 		)
 		(instances
 			(project "portal-gun"
 				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "LED3")
+					(reference "U5")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:VDD")
-		(at 58.42 144.78 0)
+		(lib_id "power:GND")
+		(at 60.96 80.01 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "323e037d-566f-4554-ad40-212c8c502822")
-		(property "Reference" "#PWR013"
-			(at 58.42 148.59 0)
+		(uuid "1d1decda-2897-4efc-b63e-84877d368c32")
+		(property "Reference" "#PWR09"
+			(at 60.96 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1496,8 +1685,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "VDD"
-			(at 58.42 140.6469 0)
+		(property "Value" "GND"
+			(at 60.96 84.1431 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1505,7 +1694,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 58.42 144.78 0)
+			(at 60.96 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1514,7 +1703,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 58.42 144.78 0)
+			(at 60.96 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1522,8 +1711,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"VDD\""
-			(at 58.42 144.78 0)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 60.96 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1532,12 +1721,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "50e4bd70-57a0-49a3-821d-9ce9ab3a0d63")
+			(uuid "d6ec42d4-f735-4e7c-b3fb-211249d9bdf2")
 		)
 		(instances
 			(project "portal-gun"
 				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "#PWR013")
+					(reference "#PWR09")
 					(unit 1)
 				)
 			)
@@ -1604,6 +1793,130 @@
 			(project "portal-gun"
 				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:TX1813Y5")
+		(at 68.58 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "484cbf15-9693-48bc-a480-2a46ef2b10a4")
+		(property "Reference" "U2"
+			(at 74.295 55.4108 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 74.295 57.0922 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED-SMD_5P-L3.2-W1.4_TX1813Y5"
+			(at 68.58 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://atta.szlcsc.com/upload/public/pdf/source/20230731/B199AA1137F26A0A13CD7CFD3D9A3FBA.pdf"
+			(at 68.58 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 68.58 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer Part" "TX1813Y5"
+			(at 68.58 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "TCWIN(天成)"
+			(at 68.58 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier Part" "C3975084"
+			(at 68.58 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" "LCSC"
+			(at 68.58 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part Name" "TX1813Y5"
+			(at 68.58 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "a743fa85-d7bd-4ab1-aec5-f04c98c4768e")
+		)
+		(pin "1"
+			(uuid "37638a8a-11b4-4125-b2ac-1cfdd7ddbc94")
+		)
+		(pin "5"
+			(uuid "67a60a22-f4b8-467c-953f-d2e4f5d8a199")
+		)
+		(pin "4"
+			(uuid "6f1067d0-2ad0-47f0-893d-e294b7c57834")
+		)
+		(pin "3"
+			(uuid "976de17a-74af-47f3-9cbf-59ff902009b8")
+		)
+		(instances
+			(project ""
+				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
+					(reference "U2")
 					(unit 1)
 				)
 			)
@@ -1680,101 +1993,35 @@
 		)
 	)
 	(symbol
-		(lib_id "power:VDD")
-		(at 58.42 111.76 0)
+		(lib_id "LED:TX1813Y5")
+		(at 68.58 93.98 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "5a6ca71d-8ba1-4cad-aec4-38a538c92081")
-		(property "Reference" "#PWR010"
-			(at 58.42 115.57 0)
+		(uuid "4b482242-d996-42a1-89df-c709e3ec5dc4")
+		(property "Reference" "U4"
+			(at 74.295 93.5108 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VDD"
-			(at 58.42 107.6269 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 58.42 111.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 58.42 111.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VDD\""
-			(at 58.42 111.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d9d3e613-41d4-4651-a80e-0e39b066170d")
-		)
-		(instances
-			(project "portal-gun"
-				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "#PWR010")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "LED:SK6812D-EC3210R")
-		(at 59.69 88.9 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5f52a12e-bde9-4ffe-a316-7fa501aefa4e")
-		(property "Reference" "LED2"
-			(at 64.135 88.4308 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 64.135 90.1122 90)
+			(at 74.295 95.1922 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED-SMD_4P_SK6812D-EC3210R"
-			(at 59.69 88.9 0)
+		(property "Footprint" "LED_SMD:LED-SMD_5P-L3.2-W1.4_TX1813Y5"
+			(at 68.58 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1782,8 +2029,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://atta.szlcsc.com/upload/public/pdf/source/20210825/B6C6473DD4EB626997615BE40306D761.pdf"
-			(at 59.69 88.9 0)
+		(property "Datasheet" "https://atta.szlcsc.com/upload/public/pdf/source/20230731/B199AA1137F26A0A13CD7CFD3D9A3FBA.pdf"
+			(at 68.58 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1792,7 +2039,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 59.69 88.9 0)
+			(at 68.58 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1800,8 +2047,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer Part" "SK6812D-EC3210R"
-			(at 59.69 88.9 0)
+		(property "Manufacturer Part" "TX1813Y5"
+			(at 68.58 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1809,8 +2056,8 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "欧思科光电"
-			(at 59.69 88.9 0)
+		(property "Manufacturer" "TCWIN(天成)"
+			(at 68.58 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1818,8 +2065,8 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier Part" "C2890041"
-			(at 59.69 88.9 0)
+		(property "Supplier Part" "C3975084"
+			(at 68.58 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1828,7 +2075,7 @@
 			)
 		)
 		(property "Supplier" "LCSC"
-			(at 59.69 88.9 0)
+			(at 68.58 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1836,31 +2083,34 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part Name" "RGB三色"
-			(at 59.69 88.9 0)
+		(property "LCSC Part Name" "TX1813Y5"
+			(at 68.58 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(pin "1"
-			(uuid "2ec72b01-6b78-4c3b-b8a5-547d24875998")
-		)
-		(pin "3"
-			(uuid "8de061cf-8173-4c58-828b-38b5fc9413fe")
 		)
 		(pin "2"
-			(uuid "cdc05ad3-a2ca-4e6a-871c-accd43794d3d")
+			(uuid "13f718c1-17a8-4f54-97f5-e7dbc4e38fe3")
+		)
+		(pin "1"
+			(uuid "06930ffd-d702-4d3c-9a0f-97fc519c5243")
+		)
+		(pin "5"
+			(uuid "730b8d5a-3daa-467c-9f68-896253a29fd2")
 		)
 		(pin "4"
-			(uuid "55e6e96c-c6bf-4c1f-be51-241c38bf67d2")
+			(uuid "44b51462-94d7-453b-a3c5-715bd7eaea7d")
+		)
+		(pin "3"
+			(uuid "f75d3867-fb01-45d7-a315-2090c0527600")
 		)
 		(instances
 			(project "portal-gun"
 				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "LED2")
+					(reference "U4")
 					(unit 1)
 				)
 			)
@@ -1868,16 +2118,16 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 58.42 165.1 0)
+		(at 60.96 99.06 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "7b3cdd4e-73e0-47bb-a6c2-1a467bd9f326")
-		(property "Reference" "#PWR014"
-			(at 58.42 171.45 0)
+		(uuid "5bc2b8c0-3254-4423-8f19-18847526ff01")
+		(property "Reference" "#PWR08"
+			(at 60.96 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1886,7 +2136,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 58.42 169.2331 0)
+			(at 60.96 103.1931 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1894,7 +2144,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 58.42 165.1 0)
+			(at 60.96 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1903,7 +2153,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 58.42 165.1 0)
+			(at 60.96 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1912,7 +2162,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 58.42 165.1 0)
+			(at 60.96 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1921,12 +2171,136 @@
 			)
 		)
 		(pin "1"
-			(uuid "76a0feca-3788-4f23-8b4d-a1d9aa8c57b5")
+			(uuid "c57e6189-7197-488a-b77d-86b7c1542db1")
 		)
 		(instances
 			(project "portal-gun"
 				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "#PWR014")
+					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:TX1813Y5")
+		(at 68.58 74.93 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "800fc830-6034-4580-84e6-45239dd9ffe1")
+		(property "Reference" "U3"
+			(at 74.295 74.4608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 74.295 76.1422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED-SMD_5P-L3.2-W1.4_TX1813Y5"
+			(at 68.58 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://atta.szlcsc.com/upload/public/pdf/source/20230731/B199AA1137F26A0A13CD7CFD3D9A3FBA.pdf"
+			(at 68.58 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 68.58 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer Part" "TX1813Y5"
+			(at 68.58 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "TCWIN(天成)"
+			(at 68.58 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier Part" "C3975084"
+			(at 68.58 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" "LCSC"
+			(at 68.58 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part Name" "TX1813Y5"
+			(at 68.58 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "7c677147-0801-49a8-bd5f-32527a2cce59")
+		)
+		(pin "1"
+			(uuid "037f544e-62e2-442d-aec7-275e776e62de")
+		)
+		(pin "5"
+			(uuid "7c94a0c4-e741-486c-afd1-993d2ede077b")
+		)
+		(pin "4"
+			(uuid "29a9afc0-e8bd-4399-b0fe-635599c8840a")
+		)
+		(pin "3"
+			(uuid "824f4f71-27f6-42bf-80f8-eb6a8b95111f")
+		)
+		(instances
+			(project "portal-gun"
+				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
+					(reference "U3")
 					(unit 1)
 				)
 			)
@@ -1934,7 +2308,7 @@
 	)
 	(symbol
 		(lib_id "power:VDD")
-		(at 58.42 45.72 0)
+		(at 53.34 44.45 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1943,7 +2317,7 @@
 		(fields_autoplaced yes)
 		(uuid "8cef33ae-0673-49fb-9f1e-236963be1eb4")
 		(property "Reference" "#PWR05"
-			(at 58.42 49.53 0)
+			(at 53.34 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1952,7 +2326,7 @@
 			)
 		)
 		(property "Value" "VDD"
-			(at 58.42 41.5869 0)
+			(at 53.34 40.3169 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1960,7 +2334,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 58.42 45.72 0)
+			(at 53.34 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1969,7 +2343,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 58.42 45.72 0)
+			(at 53.34 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1978,7 +2352,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VDD\""
-			(at 58.42 45.72 0)
+			(at 53.34 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2059,138 +2433,6 @@
 			(project "portal-gun"
 				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
 					(reference "#PWR02")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 58.42 99.06 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "93c23583-4a58-420a-a532-e15fa054f9a2")
-		(property "Reference" "#PWR09"
-			(at 58.42 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 58.42 103.1931 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 58.42 99.06 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 58.42 99.06 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 58.42 99.06 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7d29bd2c-3f0b-4927-9339-ed60c54c24e6")
-		)
-		(instances
-			(project "portal-gun"
-				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "#PWR09")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 58.42 132.08 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "94e72083-ce76-44da-b1da-c302a5859a97")
-		(property "Reference" "#PWR012"
-			(at 58.42 138.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 58.42 136.2131 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 58.42 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 58.42 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 58.42 132.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "71adc1cd-d6c1-4365-868a-387e5223aff0")
-		)
-		(instances
-			(project "portal-gun"
-				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "#PWR012")
 					(unit 1)
 				)
 			)
@@ -2397,72 +2639,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:VDD")
-		(at 58.42 78.74 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "b69703eb-af5e-4add-99e2-788a415ab8f8")
-		(property "Reference" "#PWR06"
-			(at 58.42 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VDD"
-			(at 58.42 74.6069 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 58.42 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 58.42 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VDD\""
-			(at 58.42 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "52f18a6e-9d75-428e-97d2-39ff02196a86")
-		)
-		(instances
-			(project "portal-gun"
-				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "#PWR06")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector_Generic:Conn_02x03_Odd_Even")
 		(at 152.4 88.9 270)
 		(unit 1)
@@ -2546,6 +2722,72 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 60.96 116.84 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c55fc072-6637-46e5-819b-8c8b94a2e272")
+		(property "Reference" "#PWR06"
+			(at 60.96 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 60.96 120.9731 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 60.96 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 60.96 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 60.96 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "196932fa-82c5-4652-89af-56b05ca58989")
+		)
+		(instances
+			(project ""
+				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
+					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 154.94 96.52 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2612,16 +2854,16 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 58.42 66.04 0)
+		(at 60.96 60.96 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "ddb5b427-ce6a-4df5-bd87-7511ea2e90d8")
-		(property "Reference" "#PWR08"
-			(at 58.42 72.39 0)
+		(uuid "f2b05732-0b7d-42ff-a7f6-ea972fc8740b")
+		(property "Reference" "#PWR010"
+			(at 60.96 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2630,7 +2872,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 58.42 70.1731 0)
+			(at 60.96 65.0931 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2638,7 +2880,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 58.42 66.04 0)
+			(at 60.96 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2647,7 +2889,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 58.42 66.04 0)
+			(at 60.96 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2656,7 +2898,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 58.42 66.04 0)
+			(at 60.96 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2665,254 +2907,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "95058f7e-e8bc-4623-9537-08ac921a4996")
+			(uuid "d5380acb-1272-4b12-a64e-f1c640d80be4")
 		)
 		(instances
 			(project "portal-gun"
 				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "#PWR08")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "LED:SK6812D-EC3210R")
-		(at 59.69 55.88 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e872a7d4-673f-45ad-ba85-d32397779f10")
-		(property "Reference" "LED1"
-			(at 64.135 55.4108 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "~"
-			(at 64.135 57.0922 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "LED_SMD:LED-SMD_4P_SK6812D-EC3210R"
-			(at 59.69 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://atta.szlcsc.com/upload/public/pdf/source/20210825/B6C6473DD4EB626997615BE40306D761.pdf"
-			(at 59.69 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 59.69 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer Part" "SK6812D-EC3210R"
-			(at 59.69 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "欧思科光电"
-			(at 59.69 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier Part" "C2890041"
-			(at 59.69 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier" "LCSC"
-			(at 59.69 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part Name" "RGB三色"
-			(at 59.69 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2c536aeb-581e-4154-83a9-357bde902ad5")
-		)
-		(pin "3"
-			(uuid "808970a4-d1a3-40b2-9ebc-e092fff93b3f")
-		)
-		(pin "2"
-			(uuid "14ab782e-2015-4fed-86bc-4be9f98dac43")
-		)
-		(pin "4"
-			(uuid "dc3e289e-469e-44fc-b36f-b2638fe6f3a0")
-		)
-		(instances
-			(project ""
-				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "LED1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "LED:SK6812D-EC3210R")
-		(at 59.69 154.94 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f75abce1-040d-4866-9f5a-4ae6372f019f")
-		(property "Reference" "LED4"
-			(at 64.135 154.4708 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "~"
-			(at 64.135 156.1522 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "LED_SMD:LED-SMD_4P_SK6812D-EC3210R"
-			(at 59.69 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://atta.szlcsc.com/upload/public/pdf/source/20210825/B6C6473DD4EB626997615BE40306D761.pdf"
-			(at 59.69 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 59.69 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer Part" "SK6812D-EC3210R"
-			(at 59.69 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "欧思科光电"
-			(at 59.69 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier Part" "C2890041"
-			(at 59.69 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Supplier" "LCSC"
-			(at 59.69 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part Name" "RGB三色"
-			(at 59.69 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "4fd5a1d3-73f0-4f2e-ade4-27e29a99bdb6")
-		)
-		(pin "3"
-			(uuid "ca12f15e-8ade-4555-a0d2-5e5082a8c2f7")
-		)
-		(pin "2"
-			(uuid "ffad8870-2ea8-463f-a563-e104a98c9e63")
-		)
-		(pin "4"
-			(uuid "387d83dc-b117-497c-b83e-93ce546951ac")
-		)
-		(instances
-			(project "portal-gun"
-				(path "/5f501fac-1ad7-4de5-a1f7-7ee66a9cfbfc"
-					(reference "LED4")
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)

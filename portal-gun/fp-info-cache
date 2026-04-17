@@ -1,4 +1,4 @@
-25217040605167852
+25240018461044609
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -13,6 +13,13 @@ audio belton reverb
 0
 7
 7
+Battery
+BAT-SMD_CR2032-3V-clip
+
+
+0
+3
+2
 Battery
 BatteryClip_Keystone_54_D16-19mm
 Battery clip for batteries with a diameter between 16-19 mm: https://www.keyelco.com/product.cfm/product_id/826
@@ -581,6 +588,13 @@ KEY-SMD_4P-L12.0-W12.0-P5.00-LS15.2
 4
 4
 Button_Switch_SMD
+LED-SMD_4P-L2.0-W1.8_XL-0807RGBC-WS2812B-S
+
+
+0
+4
+4
+Button_Switch_SMD
 Nidec_Copal_CAS-120A
 Slide Switch, SMD, Nidec CAS series, https://www.nidec-components.com/e/catalog/switch/cas.pdf
 SMD slide switch Nidec CAS 120A 
@@ -637,12 +651,26 @@ SMD SMT SPST EVQPUM EVQPUD
 4
 2
 Button_Switch_SMD
+SW-SMD_4P-L5.2-W5.2-P3.70-LS6.4
+
+
+0
+4
+4
+Button_Switch_SMD
 SW-SMD_GT-TC050C-H050-L1
 
 
 0
 4
 4
+Button_Switch_SMD
+SW-SMD_MSK12C02G15-B
+
+
+0
+7
+7
 Button_Switch_SMD
 SW_DIP_SPSTx01_Slide_6.7x4.1mm_W6.73mm_P2.54mm_LowProfile_JPin
 SMD 1x-dip-switch SPST , Slide, row spacing 6.73 mm (264 mils), body size 6.7x4.1mm (see e.g. https://www.ctscorp.com/wp-content/uploads/219.pdf), SMD, LowProfile, JPin
@@ -6551,6 +6579,13 @@ banana socket
 0
 3
 3
+Connector
+CONN-TH_4P-P2.54_MX128-2.54-GN01-04P-CU-Y-A
+
+
+0
+4
+4
 Connector
 CUI_PD-30
 3 pin connector, PD-30, http://www.cui.com/product/resource/pd-30.pdf
@@ -57771,6 +57806,13 @@ display oled
 30
 30
 Display
+OLED-TH_L38.0-W12.0_HS91L02W2C01
+
+
+0
+4
+4
+Display
 RC1602A
 http://www.raystar-optronics.com/down.php?ProID=18
 LCD 16x2 Alphanumeric 16pin
@@ -65590,6 +65632,13 @@ LED-SMD_4P-L1.6-W1.5_XL-1615RGBC-WS2812B
 4
 4
 LED_SMD
+LED-SMD_4P-L2.0-W1.8_XL-0807RGBC-WS2812B-S
+
+
+0
+4
+4
+LED_SMD
 LED-SMD_4P_SK6812D-EC3210R
 
 
@@ -65603,6 +65652,13 @@ LED-SMD_5P-L3.2-W1.4_TX1813Y5
 0
 5
 5
+LED_SMD
+LED-SMD_L1.7-W1.1-RD_XL-1606UWC
+
+
+0
+2
+2
 LED_SMD
 LED_1W_3W_R8
 https://www.gme.cz/data/attachments/dsh.518-234.1.pdf
@@ -82068,6 +82124,20 @@ SO exposed pad
 9
 9
 Package_SO
+ESOP-8_L4.9-W3.9-P1.27-LS6.0-BL-EP3.1
+
+
+0
+9
+9
+Package_SO
+ESSOP-10_L4.9-W3.9-P1.00-LS6.0-BL-EP
+
+
+0
+11
+11
+Package_SO
 ETSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3x4.2mm
 20-Lead Plastic Thin Shrink Small Outline (ST)-4.4 mm Body with Exposed Pad [eTSSOP] (see Microchip Packaging Specification 00000049BS.pdf)
 SSOP 0.65
@@ -83579,6 +83649,20 @@ SOP SO
 0
 8
 8
+Package_SO
+SOP-8_L4.9-W3.9-P1.27-LS6.0-BL
+
+
+0
+8
+8
+Package_SO
+SOP-14_L8.7-W3.9-P1.27-LS6.0-BL
+
+
+0
+14
+14
 Package_SO
 SOP-16_3.9x9.9mm_P1.27mm
 SOP, 16 Pin (https://www.diodes.com/assets/Datasheets/PAM8403.pdf), generated with kicad-footprint-generator ipc_gullwing_generator.py
@@ -100505,6 +100589,13 @@ igbt diode module
 0
 25
 25
+UMW_AD8531ARTZ
+SOT-23-5_L3.0-W1.7-P0.95-LS2.8-BL
+
+
+0
+5
+5
 Valve
 Valve_ECC-83-1
 Valve ECC-83-1 round pins

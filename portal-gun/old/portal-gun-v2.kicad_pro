@@ -530,7 +530,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "gerbers/",
+      "plot": "acrylic/",
       "pos_files": "M:/BFB/DC33/SAOs/portal-gun-sao-dc33/portal-gun",
       "specctra_dsn": "",
       "step": "",
